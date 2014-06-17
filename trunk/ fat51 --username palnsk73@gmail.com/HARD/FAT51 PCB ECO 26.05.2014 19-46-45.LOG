@@ -1,0 +1,35 @@
+Added Component: Designator=JP9(HDR1X5)
+Added Component: Designator=R25(_0805)
+Added Component: Designator=R26(_0805)
+Added Component: Designator=R27(_0805)
+Added Component: Designator=R28(_0805)
+Added Pin To Net: NetName=D0 Pin=R25-1
+Added Pin To Net: NetName=D0 Pin=U101-37
+Added Net: Name=D0
+Added Pin To Net: NetName=D1 Pin=R26-1
+Added Pin To Net: NetName=D1 Pin=U101-38
+Added Net: Name=D1
+Added Pin To Net: NetName=D2 Pin=R27-1
+Added Pin To Net: NetName=D2 Pin=U101-39
+Added Net: Name=D2
+Added Pin To Net: NetName=D3 Pin=R28-1
+Added Pin To Net: NetName=D3 Pin=U101-40
+Added Net: Name=D3
+Added Pin To Net: NetName=NetJP9_3 Pin=JP9-3
+Added Pin To Net: NetName=NetJP9_3 Pin=R26-2
+Added Net: Name=NetJP9_3
+Added Pin To Net: NetName=NetJP9_4 Pin=JP9-4
+Added Pin To Net: NetName=NetJP9_4 Pin=R27-2
+Added Net: Name=NetJP9_4
+Added Pin To Net: NetName=NetJP9_5 Pin=JP9-5
+Added Pin To Net: NetName=NetJP9_5 Pin=R28-2
+Added Net: Name=NetJP9_5
+Added Pin To Net: NetName=GNDUD Pin=JP9-1
+Added Pin To Net: NetName=NetJP9_2 Pin=JP9-2
+Added Pin To Net: NetName=GNDUD Pin=JP105-1
+Added Pin To Net: NetName=NetJP9_2 Pin=R25-2
+Added Member To Class: ClassName=UD Member=Component JP9 Header 5
+Added Member To Class: ClassName=UD Member=Component R25 1K0
+Added Member To Class: ClassName=UD Member=Component R26 1K0
+Added Member To Class: ClassName=UD Member=Component R27 1K0
+Added Member To Class: ClassName=UD Member=Component R28 1K0

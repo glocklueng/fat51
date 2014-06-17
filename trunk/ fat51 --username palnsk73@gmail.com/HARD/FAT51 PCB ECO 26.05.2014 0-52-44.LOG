@@ -1,0 +1,17 @@
+Added Pin To Net: NetName=PD3 Pin=R13-1
+Added Pin To Net: NetName=PD3 Pin=U1-28
+Added Net: Name=PD3
+Added Pin To Net: NetName=PD0 Pin=R1-1
+Added Pin To Net: NetName=PD4 Pin=R2-1
+Added Pin To Net: NetName=PD1 Pin=R5-1
+Added Pin To Net: NetName=PD5 Pin=R6-1
+Added Pin To Net: NetName=PD2 Pin=R9-1
+Added Pin To Net: NetName=PD6 Pin=R10-1
+Added Pin To Net: NetName=PD7 Pin=R14-1
+Added Pin To Net: NetName=PD0 Pin=U1-25
+Added Pin To Net: NetName=PD1 Pin=U1-26
+Added Pin To Net: NetName=PD2 Pin=U1-27
+Added Pin To Net: NetName=PD4 Pin=U1-29
+Added Pin To Net: NetName=PD5 Pin=U1-30
+Added Pin To Net: NetName=PD6 Pin=U1-31
+Added Pin To Net: NetName=PD7 Pin=U1-32

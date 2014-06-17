@@ -1,0 +1,14 @@
+Added Component: Designator=JP1(BT5-2-1)
+Added Component: Designator=Q1(7805_2)
+Added Component: Designator=R1(_1206)
+Added Component: Designator=R2(_1206)
+Added Component: Designator=R3(_1206)
+Added Pin To Net: NetName=NetJP1_1 Pin=JP1-1
+Added Pin To Net: NetName=NetJP1_2 Pin=JP1-2
+Added Pin To Net: NetName=NetQ1_1 Pin=Q1-1
+Added Pin To Net: NetName=NetJP1_2 Pin=Q1-3
+Added Pin To Net: NetName=NetQ1_1 Pin=R1-2
+Added Pin To Net: NetName=NetQ1_1 Pin=R2-1
+Added Pin To Net: NetName=NetJP1_2 Pin=R2-2
+Added Pin To Net: NetName=NetJP1_2 Pin=R3-2
+Added Class: Name=fat51p

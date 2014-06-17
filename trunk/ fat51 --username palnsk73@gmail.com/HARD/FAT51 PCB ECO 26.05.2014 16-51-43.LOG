@@ -1,0 +1,16 @@
+Added Component: Designator=R?(_0805)
+Added Component: Designator=R?(_0805)
+Added Pin To Net: NetName=NetR?_1 Pin=R?-1
+Added Pin To Net: NetName=NetR?_1 Pin=U104-2
+Added Net: Name=NetR?_1
+Added Pin To Net: NetName=NetR?_1 Pin=R?-1
+Added Pin To Net: NetName=NetR?_1 Pin=U103-2
+Added Net: Name=NetR?_1
+Added Pin To Net: NetName=A4 Pin=R?-2
+Added Pin To Net: NetName=A5 Pin=R?-2
+Added Pin To Net: NetName=A4 Pin=U101-9
+Added Pin To Net: NetName=A5 Pin=U101-10
+Added Pin To Net: NetName=+5V_UD Pin=U103-1
+Added Pin To Net: NetName=+5V_UD Pin=U104-1
+Added Member To Class: ClassName=UD Member=Component R? 1K0
+Added Member To Class: ClassName=UD Member=Component R? 1K0

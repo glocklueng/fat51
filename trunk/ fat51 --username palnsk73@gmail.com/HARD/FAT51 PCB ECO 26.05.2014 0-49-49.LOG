@@ -1,0 +1,13 @@
+Added Component: Designator=C8(_1206)
+Added Component: Designator=U1(QFP7X7-G32/X.5N)
+Added Pin To Net: NetName=NetC8_2 Pin=C8-2
+Added Pin To Net: NetName=NetC8_2 Pin=U1-5
+Added Net: Name=NetC8_2
+Added Pin To Net: NetName=GND Pin=C8-1
+Added Pin To Net: NetName=GND Pin=U1-4
+Added Pin To Net: NetName=+5V Pin=U1-6
+Added Pin To Net: NetName=+5V Pin=U1-7
+Added Pin To Net: NetName=+5V Pin=U1-9
+Added Pin To Net: NetName=GND Pin=U1-10
+Added Member To Class: ClassName=fat51p Member=Component C8 1.0
+Added Member To Class: ClassName=fat51p Member=Component U1 STM8S105K

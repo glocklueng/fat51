@@ -1,0 +1,3 @@
+Added Pin To Net: NetName=NetR104_1 Pin=R104-1
+Added Pin To Net: NetName=NetR105_1 Pin=R105-1
+Added Member To Class: ClassName=UD Member=Component R104 1K0

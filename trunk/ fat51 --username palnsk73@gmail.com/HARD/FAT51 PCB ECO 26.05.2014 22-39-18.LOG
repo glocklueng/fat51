@@ -1,0 +1,51 @@
+Added Component: Designator=R114(_0805)
+Added Component: Designator=R115(_0805)
+Added Component: Designator=R116(_0805)
+Added Component: Designator=R117(_0805)
+Added Component: Designator=R118(_0805)
+Added Component: Designator=R119(_0805)
+Added Component: Designator=R120(_0805)
+Added Component: Designator=R121(_0805)
+Added Component: Designator=R122(_0805)
+Added Pin To Net: NetName=B3 Pin=R114-1
+Added Pin To Net: NetName=B3 Pin=R115-1
+Added Pin To Net: NetName=B3 Pin=R120-2
+Added Pin To Net: NetName=B3 Pin=U101-18
+Added Net: Name=B3
+Added Pin To Net: NetName=B6 Pin=R116-1
+Added Pin To Net: NetName=B6 Pin=R117-1
+Added Pin To Net: NetName=B6 Pin=R121-2
+Added Pin To Net: NetName=B6 Pin=U101-15
+Added Net: Name=B6
+Added Pin To Net: NetName=B7 Pin=R118-1
+Added Pin To Net: NetName=B7 Pin=R119-1
+Added Pin To Net: NetName=B7 Pin=R122-2
+Added Pin To Net: NetName=B7 Pin=U101-14
+Added Net: Name=B7
+Added Pin To Net: NetName=NetJP105_2 Pin=JP105-2
+Added Pin To Net: NetName=NetJP105_2 Pin=R120-1
+Added Net: Name=NetJP105_2
+Added Pin To Net: NetName=NetJP106_2 Pin=JP106-2
+Added Pin To Net: NetName=NetJP106_2 Pin=R121-1
+Added Net: Name=NetJP106_2
+Added Pin To Net: NetName=NetJP107_2 Pin=JP107-2
+Added Pin To Net: NetName=NetJP107_2 Pin=R122-1
+Added Net: Name=NetJP107_2
+Added Pin To Net: NetName=GNDUD Pin=JP106-1
+Added Pin To Net: NetName=GNDUD Pin=JP107-1
+Added Pin To Net: NetName=+5V_UD Pin=JP107-3
+Added Pin To Net: NetName=GNDUD Pin=R114-2
+Added Pin To Net: NetName=+5V_UD Pin=R115-2
+Added Pin To Net: NetName=GNDUD Pin=R116-2
+Added Pin To Net: NetName=+5V_UD Pin=R117-2
+Added Pin To Net: NetName=GNDUD Pin=R118-2
+Added Pin To Net: NetName=+5V_UD Pin=R119-2
+Added Member To Class: ClassName=UD Member=Component R114 1K0
+Added Member To Class: ClassName=UD Member=Component R115 1K0
+Added Member To Class: ClassName=UD Member=Component R116 1K0
+Added Member To Class: ClassName=UD Member=Component R117 1K0
+Added Member To Class: ClassName=UD Member=Component R118 1K0
+Added Member To Class: ClassName=UD Member=Component R119 1K0
+Added Member To Class: ClassName=UD Member=Component R120 K10
+Added Member To Class: ClassName=UD Member=Component R121 K10
+Added Member To Class: ClassName=UD Member=Component R122 K10
