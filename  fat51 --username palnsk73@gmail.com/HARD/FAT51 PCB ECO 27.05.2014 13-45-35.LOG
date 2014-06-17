@@ -1,0 +1,32 @@
+Added Component: Designator=JP11(BT5-2-1)
+Added Component: Designator=JP12(BT5-2-1)
+Added Component: Designator=R33(_1206)
+Added Component: Designator=R34(_1206)
+Added Component: Designator=U3(SO-G4)
+Added Component: Designator=U4(SO-G4)
+Added Pin To Net: NetName=NetJP9_2 Pin=JP9-2
+Added Pin To Net: NetName=NetJP9_2 Pin=R34-2
+Added Net: Name=NetJP9_2
+Added Pin To Net: NetName=GND Pin=JP9-1
+Added Pin To Net: NetName=+5V Pin=JP9-3
+Added Pin To Net: NetName=NetJP11_1 Pin=JP11-1
+Added Pin To Net: NetName=NetJP11_2 Pin=JP11-2
+Added Pin To Net: NetName=NetJP12_1 Pin=JP12-1
+Added Pin To Net: NetName=NetJP12_2 Pin=JP12-2
+Added Pin To Net: NetName=GND Pin=R33-1
+Added Pin To Net: NetName=NetR33_2 Pin=R33-2
+Added Pin To Net: NetName=NetR33_2 Pin=R34-1
+Added Pin To Net: NetName=NetJP11_1 Pin=U3-1
+Added Pin To Net: NetName=NetJP11_2 Pin=U3-2
+Added Pin To Net: NetName=GND Pin=U3-3
+Added Pin To Net: NetName=NetJP12_1 Pin=U4-1
+Added Pin To Net: NetName=NetJP12_2 Pin=U4-2
+Added Pin To Net: NetName=GND Pin=U4-3
+Added Member To Class: ClassName=fat51p Member=Component JP11 BT5-2
+Added Member To Class: ClassName=fat51p Member=Component JP12 BT5-2
+Added Member To Class: ClassName=fat51p Member=Component R33 1K0
+Added Member To Class: ClassName=fat51p Member=Component R34 1K0
+Added Member To Class: ClassName=fat51p Member=Component U3 Optoisolator1
+Added Member To Class: ClassName=fat51p Member=Component U4 Optoisolator1
+Added Room: Name=UD
+Added Room: Name=fat51p

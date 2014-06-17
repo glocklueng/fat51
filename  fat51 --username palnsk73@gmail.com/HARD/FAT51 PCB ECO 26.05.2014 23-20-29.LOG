@@ -1,0 +1,17 @@
+Removed Pin From Net: NetName=NetJ1_2 Pin=J1-2
+Removed Pin From Net: NetName=NetJ2_2 Pin=J2-2
+Added Component: Designator=R123(_0805)
+Added Component: Designator=R124(_0805)
+Change Net Name : Old Net Name=NetJ1_2 New Net Name=NetU101_43
+Change Net Name : Old Net Name=NetJ2_2 New Net Name=NetU101_44
+Added Pin To Net: NetName=B2 Pin=J2-2
+Added Pin To Net: NetName=B2 Pin=R123-2
+Added Pin To Net: NetName=B2 Pin=U101-19
+Added Net: Name=B2
+Added Pin To Net: NetName=NetJ1_2 Pin=J1-2
+Added Pin To Net: NetName=NetJ1_2 Pin=R124-2
+Added Net: Name=NetJ1_2
+Added Pin To Net: NetName=+5V_UD Pin=R123-1
+Added Pin To Net: NetName=+5V_UD Pin=R124-1
+Added Member To Class: ClassName=UD Member=Component R123 1K0
+Added Member To Class: ClassName=UD Member=Component R124 1K0

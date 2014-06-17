@@ -1,0 +1,20 @@
+Added Component: Designator=R110(_0805)
+Added Component: Designator=R111(_0805)
+Added Component: Designator=R112(_0805)
+Added Component: Designator=R113(_0805)
+Added Pin To Net: NetName=B0 Pin=R112-1
+Added Pin To Net: NetName=B0 Pin=R113-2
+Added Pin To Net: NetName=B0 Pin=U101-21
+Added Net: Name=B0
+Added Pin To Net: NetName=E6 Pin=R110-1
+Added Pin To Net: NetName=E6 Pin=R111-2
+Added Pin To Net: NetName=E6 Pin=U101-22
+Added Net: Name=E6
+Added Pin To Net: NetName=GNDUD Pin=R110-2
+Added Pin To Net: NetName=+5V_UD Pin=R111-1
+Added Pin To Net: NetName=GNDUD Pin=R112-2
+Added Pin To Net: NetName=+5V_UD Pin=R113-1
+Added Member To Class: ClassName=UD Member=Component R110 1K0
+Added Member To Class: ClassName=UD Member=Component R111 1K0
+Added Member To Class: ClassName=UD Member=Component R112 1K0
+Added Member To Class: ClassName=UD Member=Component R113 1K0

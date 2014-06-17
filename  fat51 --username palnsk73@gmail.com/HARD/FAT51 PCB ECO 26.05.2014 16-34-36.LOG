@@ -1,0 +1,8 @@
+Added Component: Designator=JP103(BT5-2-1)
+Added Component: Designator=JP104(BT5-2-1)
+Added Component: Designator=JP105(BT5-2-1)
+Added Component: Designator=JP106(BT5-2-1)
+Added Member To Class: ClassName=UD Member=Component JP103 BT5-2
+Added Member To Class: ClassName=UD Member=Component JP104 BT5-2
+Added Member To Class: ClassName=UD Member=Component JP105 BT5-2
+Added Member To Class: ClassName=UD Member=Component JP106 BT5-2

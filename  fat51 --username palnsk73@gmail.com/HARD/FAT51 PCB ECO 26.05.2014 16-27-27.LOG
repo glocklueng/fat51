@@ -1,0 +1,6 @@
+Added Pin To Net: NetName=CRX Pin=U101-33
+Added Pin To Net: NetName=CRX Pin=U102-4
+Added Net: Name=CRX
+Added Pin To Net: NetName=CTX Pin=U101-32
+Added Pin To Net: NetName=CTX Pin=U102-1
+Added Net: Name=CTX

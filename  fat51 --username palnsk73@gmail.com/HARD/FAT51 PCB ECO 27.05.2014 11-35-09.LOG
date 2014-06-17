@@ -1,0 +1,82 @@
+Added Component: Designator=DS1(el3)
+Added Component: Designator=DS2(el3)
+Added Component: Designator=DS3(el3)
+Added Component: Designator=DS4(el3)
+Added Component: Designator=DS5(el3)
+Added Component: Designator=DS6(el3)
+Added Component: Designator=DS7(el3)
+Added Component: Designator=DS8(el3)
+Added Component: Designator=JP10(HDR1X5_uart)
+Added Component: Designator=R25(_1206)
+Added Component: Designator=R26(_1206)
+Added Component: Designator=R27(_1206)
+Added Component: Designator=R28(_1206)
+Added Component: Designator=R29(_1206)
+Added Component: Designator=R30(_1206)
+Added Component: Designator=R31(_1206)
+Added Component: Designator=R32(_1206)
+Added Pin To Net: NetName=NetDS1_1 Pin=DS1-1
+Added Pin To Net: NetName=NetDS1_1 Pin=R25-2
+Added Net: Name=NetDS1_1
+Added Pin To Net: NetName=NetDS2_1 Pin=DS2-1
+Added Pin To Net: NetName=NetDS2_1 Pin=R26-2
+Added Net: Name=NetDS2_1
+Added Pin To Net: NetName=NetDS3_1 Pin=DS3-1
+Added Pin To Net: NetName=NetDS3_1 Pin=R27-2
+Added Net: Name=NetDS3_1
+Added Pin To Net: NetName=NetDS4_1 Pin=DS4-1
+Added Pin To Net: NetName=NetDS4_1 Pin=R28-2
+Added Net: Name=NetDS4_1
+Added Pin To Net: NetName=NetDS5_1 Pin=DS5-1
+Added Pin To Net: NetName=NetDS5_1 Pin=R29-2
+Added Net: Name=NetDS5_1
+Added Pin To Net: NetName=NetDS6_1 Pin=DS6-1
+Added Pin To Net: NetName=NetDS6_1 Pin=R30-2
+Added Net: Name=NetDS6_1
+Added Pin To Net: NetName=NetDS7_1 Pin=DS7-1
+Added Pin To Net: NetName=NetDS7_1 Pin=R31-2
+Added Net: Name=NetDS7_1
+Added Pin To Net: NetName=NetDS8_1 Pin=DS8-1
+Added Pin To Net: NetName=NetDS8_1 Pin=R32-2
+Added Net: Name=NetDS8_1
+Added Pin To Net: NetName=RST Pin=JP10-4
+Added Pin To Net: NetName=RST Pin=U1-1
+Added Net: Name=RST
+Added Pin To Net: NetName=GND Pin=DS1-2
+Added Pin To Net: NetName=GND Pin=DS2-2
+Added Pin To Net: NetName=GND Pin=DS3-2
+Added Pin To Net: NetName=GND Pin=DS4-2
+Added Pin To Net: NetName=GND Pin=DS5-2
+Added Pin To Net: NetName=GND Pin=DS6-2
+Added Pin To Net: NetName=GND Pin=DS7-2
+Added Pin To Net: NetName=GND Pin=DS8-2
+Added Pin To Net: NetName=+5V Pin=JP10-1
+Added Pin To Net: NetName=PD1 Pin=JP10-3
+Added Pin To Net: NetName=GND Pin=JP10-5
+Added Pin To Net: NetName=PD3 Pin=R25-1
+Added Pin To Net: NetName=PD2 Pin=R26-1
+Added Pin To Net: NetName=PD1 Pin=R27-1
+Added Pin To Net: NetName=PD0 Pin=R28-1
+Added Pin To Net: NetName=PD4 Pin=R29-1
+Added Pin To Net: NetName=PD5 Pin=R30-1
+Added Pin To Net: NetName=PD6 Pin=R31-1
+Added Pin To Net: NetName=PD7 Pin=R32-1
+Added Member To Class: ClassName=fat51p Member=Component DS1 LED0
+Added Member To Class: ClassName=fat51p Member=Component DS2 LED0
+Added Member To Class: ClassName=fat51p Member=Component DS3 LED0
+Added Member To Class: ClassName=fat51p Member=Component DS4 LED0
+Added Member To Class: ClassName=fat51p Member=Component DS5 LED0
+Added Member To Class: ClassName=fat51p Member=Component DS6 LED0
+Added Member To Class: ClassName=fat51p Member=Component DS7 LED0
+Added Member To Class: ClassName=fat51p Member=Component DS8 LED0
+Added Member To Class: ClassName=fat51p Member=Component JP10 
+Added Member To Class: ClassName=fat51p Member=Component R25 1K0
+Added Member To Class: ClassName=fat51p Member=Component R26 1K0
+Added Member To Class: ClassName=fat51p Member=Component R27 1K0
+Added Member To Class: ClassName=fat51p Member=Component R28 1K0
+Added Member To Class: ClassName=fat51p Member=Component R29 1K0
+Added Member To Class: ClassName=fat51p Member=Component R30 1K0
+Added Member To Class: ClassName=fat51p Member=Component R31 1K0
+Added Member To Class: ClassName=fat51p Member=Component R32 1K0
+Added Room: Name=UD
+Added Room: Name=fat51p

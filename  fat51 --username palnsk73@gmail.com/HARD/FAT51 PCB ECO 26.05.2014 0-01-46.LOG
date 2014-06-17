@@ -1,0 +1,112 @@
+Removed Pin From Net: NetName=NetQ1_1 Pin=R2-1
+Removed Pin From Net: NetName=NetJP1_2 Pin=R2-2
+Change Component Comment : Designator=R2 Old Comment=20K New Comment=1K0
+Added Component: Designator=JP2(BT5-2-1)
+Added Component: Designator=JP3(BT5-2-1)
+Added Component: Designator=JP4(BT5-2-1)
+Added Component: Designator=JP5(BT5-2-1)
+Added Component: Designator=JP6(BT5-2-1)
+Added Component: Designator=JP7(BT5-2-1)
+Added Component: Designator=JP8(BT5-2-1)
+Added Component: Designator=Q2(7805_2)
+Added Component: Designator=Q3(7805_2)
+Added Component: Designator=Q4(7805_2)
+Added Component: Designator=Q5(7805_2)
+Added Component: Designator=Q6(7805_2)
+Added Component: Designator=Q7(7805_2)
+Added Component: Designator=Q8(7805_2)
+Added Component: Designator=R4(_1206)
+Added Component: Designator=R5(_1206)
+Added Component: Designator=R6(_1206)
+Added Component: Designator=R7(_1206)
+Added Component: Designator=R8(_1206)
+Added Component: Designator=R9(_1206)
+Added Component: Designator=R10(_1206)
+Added Component: Designator=R11(_1206)
+Added Component: Designator=R12(_1206)
+Added Component: Designator=R13(_1206)
+Added Component: Designator=R14(_1206)
+Added Component: Designator=R15(_1206)
+Added Component: Designator=R16(_1206)
+Added Component: Designator=R17(_1206)
+Added Component: Designator=R18(_1206)
+Added Component: Designator=R19(_1206)
+Added Component: Designator=R20(_1206)
+Added Component: Designator=R21(_1206)
+Added Component: Designator=R22(_1206)
+Added Component: Designator=R23(_1206)
+Added Component: Designator=R24(_1206)
+Added Pin To Net: NetName=NetJP2_1 Pin=JP2-1
+Added Pin To Net: NetName=NetJP2_2 Pin=JP2-2
+Added Pin To Net: NetName=NetJP3_1 Pin=JP3-1
+Added Pin To Net: NetName=NetJP3_2 Pin=JP3-2
+Added Pin To Net: NetName=NetJP4_1 Pin=JP4-1
+Added Pin To Net: NetName=NetJP4_2 Pin=JP4-2
+Added Pin To Net: NetName=NetJP5_1 Pin=JP5-1
+Added Pin To Net: NetName=NetJP5_2 Pin=JP5-2
+Added Pin To Net: NetName=NetJP6_1 Pin=JP6-1
+Added Pin To Net: NetName=NetJP6_2 Pin=JP6-2
+Added Pin To Net: NetName=NetJP7_1 Pin=JP7-1
+Added Pin To Net: NetName=NetJP7_2 Pin=JP7-2
+Added Pin To Net: NetName=NetJP8_1 Pin=JP8-1
+Added Pin To Net: NetName=NetJP8_2 Pin=JP8-2
+Added Pin To Net: NetName=NetQ2_1 Pin=Q2-1
+Added Pin To Net: NetName=NetJP2_1 Pin=Q2-2
+Added Pin To Net: NetName=NetJP2_2 Pin=Q2-3
+Added Pin To Net: NetName=NetQ3_1 Pin=Q3-1
+Added Pin To Net: NetName=NetJP3_1 Pin=Q3-2
+Added Pin To Net: NetName=NetJP3_2 Pin=Q3-3
+Added Pin To Net: NetName=NetQ4_1 Pin=Q4-1
+Added Pin To Net: NetName=NetJP4_1 Pin=Q4-2
+Added Pin To Net: NetName=NetJP4_2 Pin=Q4-3
+Added Pin To Net: NetName=NetQ5_1 Pin=Q5-1
+Added Pin To Net: NetName=NetJP5_1 Pin=Q5-2
+Added Pin To Net: NetName=NetJP5_2 Pin=Q5-3
+Added Pin To Net: NetName=NetQ6_1 Pin=Q6-1
+Added Pin To Net: NetName=NetJP6_1 Pin=Q6-2
+Added Pin To Net: NetName=NetJP6_2 Pin=Q6-3
+Added Pin To Net: NetName=NetQ7_1 Pin=Q7-1
+Added Pin To Net: NetName=NetJP7_1 Pin=Q7-2
+Added Pin To Net: NetName=NetJP7_2 Pin=Q7-3
+Added Pin To Net: NetName=NetQ8_1 Pin=Q8-1
+Added Pin To Net: NetName=NetJP8_1 Pin=Q8-2
+Added Pin To Net: NetName=NetJP8_2 Pin=Q8-3
+Added Pin To Net: NetName=NetQ2_1 Pin=R2-2
+Added Pin To Net: NetName=GND Pin=R3-1
+Added Pin To Net: NetName=GND Pin=R4-1
+Added Pin To Net: NetName=NetJP2_2 Pin=R4-2
+Added Pin To Net: NetName=NetQ3_1 Pin=R5-2
+Added Pin To Net: NetName=NetQ4_1 Pin=R6-2
+Added Pin To Net: NetName=GND Pin=R7-1
+Added Pin To Net: NetName=NetJP3_2 Pin=R7-2
+Added Pin To Net: NetName=GND Pin=R8-1
+Added Pin To Net: NetName=NetJP4_2 Pin=R8-2
+Added Pin To Net: NetName=NetQ5_1 Pin=R9-2
+Added Pin To Net: NetName=NetQ6_1 Pin=R10-2
+Added Pin To Net: NetName=GND Pin=R11-1
+Added Pin To Net: NetName=NetJP5_2 Pin=R11-2
+Added Pin To Net: NetName=GND Pin=R12-1
+Added Pin To Net: NetName=NetJP6_2 Pin=R12-2
+Added Pin To Net: NetName=NetQ7_1 Pin=R13-2
+Added Pin To Net: NetName=NetQ8_1 Pin=R14-2
+Added Pin To Net: NetName=GND Pin=R15-1
+Added Pin To Net: NetName=NetJP7_2 Pin=R15-2
+Added Pin To Net: NetName=GND Pin=R16-1
+Added Pin To Net: NetName=NetJP8_2 Pin=R16-2
+Added Pin To Net: NetName=NetQ1_1 Pin=R17-1
+Added Pin To Net: NetName=NetJP1_2 Pin=R17-2
+Added Pin To Net: NetName=NetQ2_1 Pin=R18-1
+Added Pin To Net: NetName=NetJP2_2 Pin=R18-2
+Added Pin To Net: NetName=NetQ3_1 Pin=R19-1
+Added Pin To Net: NetName=NetJP3_2 Pin=R19-2
+Added Pin To Net: NetName=NetQ4_1 Pin=R20-1
+Added Pin To Net: NetName=NetJP4_2 Pin=R20-2
+Added Pin To Net: NetName=NetQ5_1 Pin=R21-1
+Added Pin To Net: NetName=NetJP5_2 Pin=R21-2
+Added Pin To Net: NetName=NetQ6_1 Pin=R22-1
+Added Pin To Net: NetName=NetJP6_2 Pin=R22-2
+Added Pin To Net: NetName=NetQ7_1 Pin=R23-1
+Added Pin To Net: NetName=NetJP7_2 Pin=R23-2
+Added Pin To Net: NetName=NetQ8_1 Pin=R24-1
+Added Pin To Net: NetName=NetJP8_2 Pin=R24-2
+Added Class: Name=fat51p

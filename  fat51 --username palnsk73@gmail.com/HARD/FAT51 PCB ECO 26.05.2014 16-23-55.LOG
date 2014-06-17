@@ -1,0 +1,22 @@
+Change Component Comment : Designator=R101 Old Comment=1R New Comment=1R0
+Change Component Comment : Designator=R100 Old Comment=1R New Comment=1R0
+Added Component: Designator=R102(_0805)
+Added Component: Designator=R103(_0805)
+Added Component: Designator=U102(SO-G8/D5)
+Added Pin To Net: NetName=NetJP101_5 Pin=JP101-5
+Added Pin To Net: NetName=NetJP101_5 Pin=R103-2
+Added Pin To Net: NetName=NetJP101_5 Pin=U102-7
+Added Net: Name=NetJP101_5
+Added Pin To Net: NetName=NetJP101_6 Pin=JP101-6
+Added Pin To Net: NetName=NetJP101_6 Pin=R103-1
+Added Pin To Net: NetName=NetJP101_6 Pin=U102-6
+Added Net: Name=NetJP101_6
+Added Pin To Net: NetName=NetR102_2 Pin=R102-2
+Added Pin To Net: NetName=NetR102_2 Pin=U102-5
+Added Net: Name=NetR102_2
+Added Pin To Net: NetName=GNDUD Pin=R102-1
+Added Pin To Net: NetName=GNDUD Pin=U102-2
+Added Member To Class: ClassName=UD Member=Component R102 1R0
+Added Member To Class: ClassName=UD Member=Component R103 K10
+Added Member To Class: ClassName=UD Member=Component U102 TJA1050
+Added Room: Name=UD

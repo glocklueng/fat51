@@ -1,0 +1,6 @@
+Change Component Footprint: Designator=C104 Old Footprint=_1206 New Footprint=_0805
+Change Component Footprint: Designator=C103 Old Footprint=_1206 New Footprint=_0805
+Added Pin To Net: NetName=RSTUD Pin=JP102-4
+Added Pin To Net: NetName=RSTUD Pin=U101-1
+Added Net: Name=RSTUD
+Added Pin To Net: NetName=D1 Pin=JP102-3

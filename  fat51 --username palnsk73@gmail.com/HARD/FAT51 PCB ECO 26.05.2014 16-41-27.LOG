@@ -1,0 +1,8 @@
+Added Component: Designator=U103(dip-6)
+Added Pin To Net: NetName=NetJP103_1 Pin=JP103-1
+Added Pin To Net: NetName=NetJP103_1 Pin=U103-6
+Added Net: Name=NetJP103_1
+Added Pin To Net: NetName=NetJP103_2 Pin=JP103-2
+Added Pin To Net: NetName=NetJP103_2 Pin=U103-4
+Added Net: Name=NetJP103_2
+Added Member To Class: ClassName=UD Member=Component U103 Opto TRIAC
