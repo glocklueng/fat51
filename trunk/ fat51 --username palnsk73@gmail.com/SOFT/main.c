@@ -20,6 +20,10 @@ const char program_repeat_max[]={10/*p1*/,10/*p2*/,5/*p3*/,5/*p4*/,5/*p5*/};
 @near char program_steps;
 @near char program_repeat;
 
+@near short adc_buff[16];
+@near short adc_buff_;
+@near char adc_cnt;
+
 #define MAX_PROGRAM_STAT	5
 
 const char p1_const[]={	0b00000001,	//Бегущий огонь вперед
@@ -80,6 +84,8 @@ const char p5_const[]={	0b00000001,	//Гусеница вперед
 //-----------------------------------------------
 void time_wrk(void)
 {
+time_wrk_cnt_max=adc_buff_*2;
+
 time_wrk_cnt++;
 if(time_wrk_cnt>=time_wrk_cnt_max)
 	{
@@ -154,6 +160,22 @@ TIM4->IER|= TIM4_IER_UIE;					// enable break interrupt
 
 TIM4->CR1=(TIM4_CR1_URS | TIM4_CR1_CEN | TIM4_CR1_ARPE);	
 }
+//-----------------------------------------------
+void adc_init(void){
+	GPIOB->DDR&=~(1<<2);
+	GPIOB->CR1&=~(1<<2);
+	GPIOB->CR2&=~(1<<2);
+	ADC1->TDRL|=(1<<2);
+
+	
+	ADC1->CR2=0x08;
+	ADC1->CR1=0x40;
+	ADC1->CSR=0x20+2;
+	
+	ADC1->CR1|=1;
+ADC1->CR1|=1;
+}
+
 
 //***********************************************
 //***********************************************
@@ -199,6 +221,72 @@ TIM4->SR1&=~TIM4_SR1_UIF;			// disable break interrupt
 return;
 }
 //***********************************************
+@far @interrupt void ADC_EOC_Interrupt (void) {
+
+signed long temp_adc;
+
+
+/*		GPIOA->DDR|=(1<<1);
+		GPIOA->CR1|=(1<<1);
+		GPIOA->CR2&=~(1<<1);	
+		GPIOA->ODR|=(1<<1);*/
+
+ADC1->CSR&=~(1<<7);
+
+temp_adc=(((signed long)(ADC1->DRH))*256)+((signed long)(ADC1->DRL));
+
+//temp_adc=4000;
+//temp_adc=720;
+
+
+adc_buff[adc_cnt]=temp_adc;
+
+//adc_plazma=ADC1->DR;
+//if(adc_ch==0)adc_plazma_short=temp_adc;
+
+adc_cnt++;
+if(adc_cnt>=16)
+	{
+	adc_cnt=0;
+	}
+
+
+if((adc_cnt&0x03)==0)
+	{
+	signed long tempSS;
+	char i;
+	tempSS=0;
+		
+
+	
+	for(i=0;i<16;i++)
+		{
+		tempSS+=(signed long)adc_buff[i];
+		}
+	adc_buff_=(signed short)(tempSS>>4);
+	}
+
+//adc_buff_[adc_ch]=adc_ch*10;
+
+//GPIOD->ODR&=~(1<<0);
+
+//ADC1->CR1&=~(1<<0);
+
+/*
+adcw[0]=(ADC1->DB0RL)+((ADC1->DB0RH)*256);
+adcw[1]=(ADC1->DB1RL)+((ADC1->DB1RH)*256);
+adcw[2]=(ADC1->DB2RL)+((ADC1->DB2RH)*256);*/
+
+
+
+
+//GPIOD->ODR|=(1<<0);
+
+
+	
+		//GPIOA->ODR&=~(1<<1);
+}
+//***********************************************
 @far @interrupt void TIM1_Ovf_Interrupt (void) 
 {
 //GPIOD->ODR^=(1<<3)|(1<<4);
@@ -223,7 +311,9 @@ FLASH_DUKR=0x56;
 	
 t4_init();
 enableInterrupts();	
-	
+
+adc_init();
+
 while (1)
 	{
 //GPIOD->ODR^=0xff;
@@ -242,7 +332,7 @@ while (1)
 	if(b10Hz)
 		{
 		b10Hz=0;
-			
+		adc_init();	
       	}
       	 
 	if(b5Hz)
