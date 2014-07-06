@@ -11,11 +11,11 @@ bool bFL5,bFL2,bFL1,bFL_;
 @near bool bTIME_WRK=0;
 @near signed short time_wrk_cnt,time_wrk_cnt_max=TIME_CONST;
 
-@near enum {p1=0,p2,p3,p4,p5} program_stat=p4;
+@near enum {p1=0,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11} program_stat=p9;
 @near char port_temp;
 
-const char program_steps_max[]={6/*p1*/,6/*p2*/,12/*p3*/,12/*p4*/,12/*p5*/}; 
-const char program_repeat_max[]={10/*p1*/,10/*p2*/,5/*p3*/,5/*p4*/,5/*p5*/};
+const char program_steps_max[]={6/*p1*/,6/*p2*/,12/*p3*/,12/*p4*/,12/*p5*/,12/*p6*/,12/*p7*/,6/*p8*/,6/*p9*/,28/*p10*/,28/*p11*/}; 
+const char program_repeat_max[]={10/*p1*/,10/*p2*/,5/*p3*/,5/*p4*/,5/*p5*/,5/*p6*/,5/*p7*/,10/*p8*/,10/*p9*/,3/*p10*/,3/*p11*/};
 
 @near char program_steps;
 @near char program_repeat;
@@ -24,7 +24,7 @@ const char program_repeat_max[]={10/*p1*/,10/*p2*/,5/*p3*/,5/*p4*/,5/*p5*/};
 @near short adc_buff_;
 @near char adc_cnt;
 
-#define MAX_PROGRAM_STAT	5
+#define MAX_PROGRAM_STAT	11
 
 const char p1_const[]={	0b00000001,	//Ѕегущий огонь вперед
 						0b00000010,
@@ -78,6 +78,105 @@ const char p5_const[]={	0b00000001,	//√усеница вперед
 						0b00110000,
 						0b00100000,
 						0b00100001};
+
+const char p6_const[]={	0b00100000,	//√усеница назад
+						0b00110000,
+						0b00010000,
+						0b00011000,
+						0b00001000,
+						0b00001100,
+						0b00000100,
+						0b00000110,
+						0b00000010,
+						0b00000011,
+						0b00000001,
+						0b00100001};
+						
+const char p7_const[]={	0b00100000,	//встречное накапливающеес€ включение-гашение
+						0b00100001,
+						0b00110001,
+						0b00110011,
+						0b00111011,
+						0b00111111,
+						0b00111011,
+						0b00110011,
+						0b00110001,
+						0b00100001,
+						0b00100000,
+						0b00000000};
+						
+const char p8_const[]={	0b00111110,	//Ѕегуща€ тень вперед
+						0b00111101,
+						0b00111011,
+						0b00110111,
+						0b00101111,
+						0b00011111};
+						
+const char p9_const[]={	0b00011111,	//Ѕегуща€ тень назад
+						0b00101111,
+						0b00110111,
+						0b00111011,
+						0b00111101,
+						0b00111110};
+
+const char p10_const[]={0b00000000,	//набегающие огни вперед и накапливающеес€ гашение вперед 
+						0b00000001,
+						0b00000010,
+						0b00000100,
+						0b00001000,
+						0b00010000,
+						0b00100000,
+						0b00100001,
+						0b00100010,
+						0b00100100,
+						0b00101000,
+						0b00110000,
+						0b00110001,
+						0b00110010,
+						0b00110100,
+						0b00111000,
+						0b00111001,
+						0b00111010,
+						0b00111100,
+						0b00111101,
+						0b00111110,
+						0b00111111,
+						0b00111110,
+						0b00111100,
+						0b00111000,
+						0b00110000,
+						0b00100000,
+						0b00000000};
+						
+const char p11_const[]={0b00000000,	//набегающие огни назад и накапливающеес€ гашение назад 
+						0b00100000,
+						0b00010000,
+						0b00001000,
+						0b00000100,
+						0b00000010,
+						0b00000001,
+						0b00100001,
+						0b00010001,
+						0b00001001,
+						0b00000101,
+						0b00000011,
+						0b00100011,
+						0b00010011,
+						0b00001011,
+						0b00000111,
+						0b00100111,
+						0b00010111,
+						0b00001111,
+						0b00101111,
+						0b00011111,
+						0b00111111,
+						0b00011111,
+						0b00001111,
+						0b00000111,
+						0b00000011,
+						0b00000001,
+						0b00000000};
+						
 
 //
 
@@ -133,7 +232,30 @@ if(bTIME_WRK)
 		{
 		port_temp=p5_const[program_steps];	
 		}	
-		
+	else if(program_stat==p6)
+		{
+		port_temp=p6_const[program_steps];	
+		}	
+	else if(program_stat==p7)
+		{
+		port_temp=p7_const[program_steps];	
+		}
+	else if(program_stat==p8)
+		{
+		port_temp=p8_const[program_steps];	
+		}	
+	else if(program_stat==p9)
+		{
+		port_temp=p9_const[program_steps];	
+		}	
+	else if(program_stat==p10)
+		{
+		port_temp=p10_const[program_steps];	
+		}	
+	else if(program_stat==p11)
+		{
+		port_temp=p11_const[program_steps];	
+		}			
 	GPIOD->ODR=port_temp;
 	}
 bTIME_WRK=0;

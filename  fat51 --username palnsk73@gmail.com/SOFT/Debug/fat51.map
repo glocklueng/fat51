@@ -1,25 +1,25 @@
 
-Map of Debug\fat51.sm8 from link file Debug\fat51.lkf - Tue Jun 24 01:09:34 2014
+Map of Debug\fat51.sm8 from link file Debug\fat51.lkf - Mon Jul 07 00:21:36 2014
 
 
                                --------
                                Segments
                                --------
 
-start 00008080 end 000080ba length    58 segment .const
-start 000080d1 end 00008477 length   934 segment .text
+start 00008080 end 00008122 length   162 segment .const
+start 00008139 end 0000855f length  1062 segment .text
 start 00004000 end 00004000 length     0 segment .eeprom
 start 00000000 end 00000000 length     0 segment .bsct
 start 00000000 end 0000000e length    14 segment .ubsct
 start 0000000e end 0000000e length     0 segment .bit
 start 0000000e end 0000000e length     0 segment .share
 start 00000100 end 0000010f length    15 segment .data, initialized
-start 000080c2 end 000080d1 length    15 segment .data, from
+start 0000812a end 00008139 length    15 segment .data, from
 start 0000010f end 00000137 length    40 segment .bss
 start 00000000 end 00000336 length   822 segment .info.
-start 00000000 end 00002039 length  8249 segment .debug
+start 00000000 end 00002181 length  8577 segment .debug
 start 00008000 end 00008080 length   128 segment .const
-start 000080ba end 000080c2 length     8 segment .init
+start 00008122 end 0000812a length     8 segment .init
 
 
                                -------
@@ -27,30 +27,30 @@ start 000080ba end 000080c2 length     8 segment .init
                                -------
 
 C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8:
-start 000080d1 end 0000811c length    75 section .text
+start 00008139 end 00008184 length    75 section .text
 start 0000010f end 0000010f length     0 section .bss
 start 00000000 end 00000000 length     0 section .ubsct
 start 00000000 end 0000002f length    47 section .info.
 
 Debug\main.o:
-start 0000811c end 000083ca length   686 section .text
+start 00008184 end 000084b2 length   814 section .text
 start 00000100 end 0000010f length    15 section .data
 start 0000010f end 00000137 length    40 section .bss
 start 00000000 end 00000004 length     4 section .ubsct
-start 00000000 end 00001ece length  7886 section .debug
+start 00000000 end 00002016 length  8214 section .debug
 start 0000002f end 000000a9 length   122 section .info.
-start 00008080 end 000080ba length    58 section .const
+start 00008080 end 00008122 length   162 section .const
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)itolx.o:
-start 000083ca end 000083d8 length    14 section .text
+start 000084b2 end 000084c0 length    14 section .text
 start 000000a9 end 000000d8 length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ladd.o:
-start 000083d8 end 000083f0 length    24 section .text
+start 000084c0 end 000084d8 length    24 section .text
 start 000000d8 end 00000106 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgadd.o:
-start 000083f0 end 00008407 length    23 section .text
+start 000084d8 end 000084ef length    23 section .text
 start 00000106 end 00000135 length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lreg.o:
@@ -58,19 +58,19 @@ start 00000004 end 00000008 length     4 section .ubsct
 start 00000135 end 00000163 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lrsh.o:
-start 00008407 end 00008416 length    15 section .text
+start 000084ef end 000084fe length    15 section .text
 start 00000163 end 00000191 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ltor.o:
-start 00008416 end 00008428 length    18 section .text
+start 000084fe end 00008510 length    18 section .text
 start 00000191 end 000001bf length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)rtol.o:
-start 00008428 end 0000843a length    18 section .text
+start 00008510 end 00008522 length    18 section .text
 start 000001bf end 000001ed length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)umul.o:
-start 0000843a end 00008476 length    60 section .text
+start 00008522 end 0000855e length    60 section .text
 start 000001ed end 0000021b length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)xreg.o:
@@ -82,8 +82,8 @@ start 0000000b end 0000000e length     3 section .ubsct
 start 00000249 end 00000277 length    46 section .info.
 
 Debug\stm8_interrupt_vector.o:
-start 00008476 end 00008477 length     1 section .text
-start 00001ece end 00002039 length   363 section .debug
+start 0000855e end 0000855f length     1 section .text
+start 00002016 end 00002181 length   363 section .debug
 start 00000277 end 00000302 length   139 section .info.
 start 00008000 end 00008080 length   128 section .const
 
@@ -343,7 +343,7 @@ __endmem                000001ff   defined in command file
                                    *** not used ***
 __endzp                 0000000e   defined in command file section .ubsct
                                    used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
-__idesc__               000080ba   defined in linker section .init
+__idesc__               00008122   defined in linker section .init
                                    used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
 __memory                00000137   defined in command file section .bss
                                    used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
@@ -351,13 +351,13 @@ __stack                 000003ff   defined in command file
                                    used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
 __startmem              00000137   defined in command file section .bss
                                    *** not used ***
-__stext                 000080d1   defined in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8 section .text
+__stext                 00008139   defined in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8 section .text
                                    used in Debug\stm8_interrupt_vector.o
 __vectab                00008000   defined in Debug\stm8_interrupt_vector.o section .const
 _adc_buff               00000112   defined in Debug\main.o section .bss
 _adc_buff_              00000110   defined in Debug\main.o section .bss
 _adc_cnt                0000010f   defined in Debug\main.o section .bss
-_adc_init               00008215   defined in Debug\main.o section .text
+_adc_init               000082fd   defined in Debug\main.o section .text
 _b1000Hz                00000100   defined in Debug\main.o section .data, initialized
 _b100Hz                 00000101   defined in Debug\main.o section .data, initialized
 _b10Hz                  00000102   defined in Debug\main.o section .data, initialized
@@ -369,18 +369,24 @@ _bFL2                   00000002   defined in Debug\main.o section .ubsct
 _bFL5                   00000003   defined in Debug\main.o section .ubsct
 _bFL_                   00000000   defined in Debug\main.o section .ubsct
 _bTIME_WRK              0000010b   defined in Debug\main.o section .data, initialized
-_exit                   0000811a   defined in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8 section .text
-_gpio_init              000081eb   defined in Debug\main.o section .text
-_main                   0000836d   defined in Debug\main.o section .text
+_exit                   00008182   defined in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8 section .text
+_gpio_init              000082d3   defined in Debug\main.o section .text
+_main                   00008455   defined in Debug\main.o section .text
                                    used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
-_p1_const               0000808a   defined in Debug\main.o section .const
-_p2_const               00008090   defined in Debug\main.o section .const
-_p3_const               00008096   defined in Debug\main.o section .const
-_p4_const               000080a2   defined in Debug\main.o section .const
-_p5_const               000080ae   defined in Debug\main.o section .const
+_p10_const              000080ea   defined in Debug\main.o section .const
+_p11_const              00008106   defined in Debug\main.o section .const
+_p1_const               00008096   defined in Debug\main.o section .const
+_p2_const               0000809c   defined in Debug\main.o section .const
+_p3_const               000080a2   defined in Debug\main.o section .const
+_p4_const               000080ae   defined in Debug\main.o section .const
+_p5_const               000080ba   defined in Debug\main.o section .const
+_p6_const               000080c6   defined in Debug\main.o section .const
+_p7_const               000080d2   defined in Debug\main.o section .const
+_p8_const               000080de   defined in Debug\main.o section .const
+_p9_const               000080e4   defined in Debug\main.o section .const
 _port_temp              00000134   defined in Debug\main.o section .bss
 _program_repeat         00000132   defined in Debug\main.o section .bss
-_program_repeat_max     00008085   defined in Debug\main.o section .const
+_program_repeat_max     0000808b   defined in Debug\main.o section .const
 _program_stat           0000010e   defined in Debug\main.o section .data, initialized
 _program_steps          00000133   defined in Debug\main.o section .bss
 _program_steps_max      00008080   defined in Debug\main.o section .const
@@ -389,16 +395,16 @@ _t0_cnt1                00000107   defined in Debug\main.o section .data, initia
 _t0_cnt2                00000108   defined in Debug\main.o section .data, initialized
 _t0_cnt3                00000109   defined in Debug\main.o section .data, initialized
 _t0_cnt4                0000010a   defined in Debug\main.o section .data, initialized
-_t4_init                00008204   defined in Debug\main.o section .text
-_time_wrk               0000811c   defined in Debug\main.o section .text
+_t4_init                000082ec   defined in Debug\main.o section .text
+_time_wrk               00008184   defined in Debug\main.o section .text
 _time_wrk_cnt           00000135   defined in Debug\main.o section .bss
 _time_wrk_cnt_max       0000010c   defined in Debug\main.o section .data, initialized
-_wrk_hndl               0000813e   defined in Debug\main.o section .text
-c_itolx                 000083ca   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)itolx.o section .text
+_wrk_hndl               000081a6   defined in Debug\main.o section .text
+c_itolx                 000084b2   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)itolx.o section .text
                                    used in Debug\main.o
-c_ladd                  000083d8   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ladd.o section .text
+c_ladd                  000084c0   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ladd.o section .text
                                    used in Debug\main.o
-c_lgadd                 000083f0   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgadd.o section .text
+c_lgadd                 000084d8   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgadd.o section .text
                                    used in Debug\main.o
 c_lreg                  00000004   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lreg.o section .ubsct
                                    used in Debug\main.o
@@ -409,13 +415,13 @@ c_lreg                  00000004   defined in (C:\Program Files\COSMIC\CXSTM8_32
                                            (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ltor.o
                                            (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)rtol.o
                                            (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)umul.o
-c_lrsh                  00008407   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lrsh.o section .text
+c_lrsh                  000084ef   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lrsh.o section .text
                                    used in Debug\main.o
-c_ltor                  00008416   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ltor.o section .text
+c_ltor                  000084fe   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ltor.o section .text
                                    used in Debug\main.o
-c_rtol                  00008428   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)rtol.o section .text
+c_rtol                  00008510   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)rtol.o section .text
                                    used in Debug\main.o
-c_umul                  0000843a   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)umul.o section .text
+c_umul                  00008522   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)umul.o section .text
                                    used in Debug\main.o
 c_x                     00000008   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)xreg.o section .ubsct
                                    used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
@@ -425,10 +431,10 @@ c_y                     0000000b   defined in (C:\Program Files\COSMIC\CXSTM8_32
                                    used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
                                            Debug\main.o
                                            (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)umul.o
-f_ADC_EOC_Interrupt     000082c3   defined in Debug\main.o section .text
+f_ADC_EOC_Interrupt     000083ab   defined in Debug\main.o section .text
                                    used in Debug\stm8_interrupt_vector.o
-f_NonHandledInterrupt   00008476   defined in Debug\stm8_interrupt_vector.o section .text
-f_TIM1_Ovf_Interrupt    00008368   defined in Debug\main.o section .text
+f_NonHandledInterrupt   0000855e   defined in Debug\stm8_interrupt_vector.o section .text
+f_TIM1_Ovf_Interrupt    00008450   defined in Debug\main.o section .text
                                    used in Debug\stm8_interrupt_vector.o
-f_TIM4_UPD_Interrupt    0000823a   defined in Debug\main.o section .text
+f_TIM4_UPD_Interrupt    00008322   defined in Debug\main.o section .text
                                    used in Debug\stm8_interrupt_vector.o

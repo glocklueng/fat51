@@ -29,7 +29,7 @@
 2198  000c               _time_wrk_cnt_max:
 2199  000c 0064          	dc.w	100
 2200  000e               _program_stat:
-2201  000e 03            	dc.b	3
+2201  000e 08            	dc.b	8
 2202                     .const:	section	.text
 2203  0000               _program_steps_max:
 2204  0000 06            	dc.b	6
@@ -37,575 +37,763 @@
 2206  0002 0c            	dc.b	12
 2207  0003 0c            	dc.b	12
 2208  0004 0c            	dc.b	12
-2209  0005               _program_repeat_max:
-2210  0005 0a            	dc.b	10
-2211  0006 0a            	dc.b	10
-2212  0007 05            	dc.b	5
-2213  0008 05            	dc.b	5
-2214  0009 05            	dc.b	5
-2215  000a               _p1_const:
-2216  000a 01            	dc.b	1
-2217  000b 02            	dc.b	2
-2218  000c 04            	dc.b	4
-2219  000d 08            	dc.b	8
-2220  000e 10            	dc.b	16
-2221  000f 20            	dc.b	32
-2222  0010               _p2_const:
-2223  0010 20            	dc.b	32
-2224  0011 10            	dc.b	16
-2225  0012 08            	dc.b	8
-2226  0013 04            	dc.b	4
-2227  0014 02            	dc.b	2
-2228  0015 01            	dc.b	1
-2229  0016               _p3_const:
-2230  0016 01            	dc.b	1
-2231  0017 03            	dc.b	3
-2232  0018 07            	dc.b	7
-2233  0019 0f            	dc.b	15
-2234  001a 1f            	dc.b	31
-2235  001b 3f            	dc.b	63
-2236  001c 3e            	dc.b	62
-2237  001d 3c            	dc.b	60
-2238  001e 38            	dc.b	56
-2239  001f 30            	dc.b	48
-2240  0020 20            	dc.b	32
-2241  0021 00            	dc.b	0
-2242  0022               _p4_const:
-2243  0022 20            	dc.b	32
-2244  0023 30            	dc.b	48
-2245  0024 38            	dc.b	56
-2246  0025 3c            	dc.b	60
-2247  0026 3e            	dc.b	62
-2248  0027 3f            	dc.b	63
-2249  0028 1f            	dc.b	31
-2250  0029 0f            	dc.b	15
-2251  002a 07            	dc.b	7
-2252  002b 03            	dc.b	3
-2253  002c 01            	dc.b	1
-2254  002d 00            	dc.b	0
-2255  002e               _p5_const:
-2256  002e 01            	dc.b	1
-2257  002f 03            	dc.b	3
-2258  0030 02            	dc.b	2
-2259  0031 06            	dc.b	6
-2260  0032 04            	dc.b	4
-2261  0033 0c            	dc.b	12
-2262  0034 08            	dc.b	8
-2263  0035 18            	dc.b	24
-2264  0036 10            	dc.b	16
-2265  0037 30            	dc.b	48
-2266  0038 20            	dc.b	32
-2267  0039 21            	dc.b	33
-2300                     ; 85 void time_wrk(void)
-2300                     ; 86 {
-2302                     	switch	.text
-2303  0000               _time_wrk:
-2307                     ; 87 time_wrk_cnt_max=adc_buff_*2;
-2309  0000 ce0001        	ldw	x,_adc_buff_
-2310  0003 58            	sllw	x
-2311  0004 cf000c        	ldw	_time_wrk_cnt_max,x
-2312                     ; 89 time_wrk_cnt++;
-2314  0007 ce0026        	ldw	x,_time_wrk_cnt
-2315  000a 1c0001        	addw	x,#1
-2316  000d cf0026        	ldw	_time_wrk_cnt,x
-2317                     ; 90 if(time_wrk_cnt>=time_wrk_cnt_max)
-2319  0010 9c            	rvf
-2320  0011 ce0026        	ldw	x,_time_wrk_cnt
-2321  0014 c3000c        	cpw	x,_time_wrk_cnt_max
-2322  0017 2f08          	jrslt	L1441
-2323                     ; 92 	time_wrk_cnt=0;
-2325  0019 5f            	clrw	x
-2326  001a cf0026        	ldw	_time_wrk_cnt,x
-2327                     ; 93 	bTIME_WRK=1;
-2329  001d 3501000b      	mov	_bTIME_WRK,#1
-2330  0021               L1441:
-2331                     ; 96 }
-2334  0021 81            	ret
-2369                     ; 99 void wrk_hndl(void)
-2369                     ; 100 {
-2370                     	switch	.text
-2371  0022               _wrk_hndl:
-2375                     ; 101 if(bTIME_WRK)
-2377  0022 725d000b      	tnz	_bTIME_WRK
-2378  0026 2603          	jrne	L01
-2379  0028 cc00ca        	jp	L3541
-2380  002b               L01:
-2381                     ; 103 	program_steps++;
-2383  002b 725c0024      	inc	_program_steps
-2384                     ; 104 	if(program_steps>=program_steps_max[program_stat])
-2386  002f c6000e        	ld	a,_program_stat
-2387  0032 5f            	clrw	x
-2388  0033 97            	ld	xl,a
-2389  0034 d60000        	ld	a,(_program_steps_max,x)
-2390  0037 c10024        	cp	a,_program_steps
-2391  003a 2228          	jrugt	L5541
-2392                     ; 106 		program_steps=0;
-2394  003c 725f0024      	clr	_program_steps
-2395                     ; 107 		program_repeat++;
-2397  0040 725c0023      	inc	_program_repeat
-2398                     ; 108 		if(program_repeat>=program_repeat_max[program_stat])
-2400  0044 c6000e        	ld	a,_program_stat
-2401  0047 5f            	clrw	x
-2402  0048 97            	ld	xl,a
-2403  0049 d60005        	ld	a,(_program_repeat_max,x)
-2404  004c c10023        	cp	a,_program_repeat
-2405  004f 2213          	jrugt	L5541
-2406                     ; 110 			program_repeat=0;
-2408  0051 725f0023      	clr	_program_repeat
-2409                     ; 111 			program_stat++;
-2411  0055 725c000e      	inc	_program_stat
-2412                     ; 112 			if(program_stat>=MAX_PROGRAM_STAT)program_stat=0;
-2414  0059 c6000e        	ld	a,_program_stat
-2415  005c a105          	cp	a,#5
-2416  005e 2504          	jrult	L5541
-2419  0060 725f000e      	clr	_program_stat
-2420  0064               L5541:
-2421                     ; 116 	if(program_stat==p1)
-2423  0064 725d000e      	tnz	_program_stat
-2424  0068 260d          	jrne	L3641
-2425                     ; 118 		port_temp=p1_const[program_steps];	
-2427  006a c60024        	ld	a,_program_steps
-2428  006d 5f            	clrw	x
-2429  006e 97            	ld	xl,a
-2430  006f d6000a        	ld	a,(_p1_const,x)
-2431  0072 c70025        	ld	_port_temp,a
-2433  0075 204e          	jra	L5641
-2434  0077               L3641:
-2435                     ; 120 	else if(program_stat==p2)
-2437  0077 c6000e        	ld	a,_program_stat
-2438  007a a101          	cp	a,#1
-2439  007c 260d          	jrne	L7641
-2440                     ; 122 		port_temp=p2_const[program_steps];	
-2442  007e c60024        	ld	a,_program_steps
-2443  0081 5f            	clrw	x
-2444  0082 97            	ld	xl,a
-2445  0083 d60010        	ld	a,(_p2_const,x)
-2446  0086 c70025        	ld	_port_temp,a
-2448  0089 203a          	jra	L5641
-2449  008b               L7641:
-2450                     ; 124 	else if(program_stat==p3)
-2452  008b c6000e        	ld	a,_program_stat
-2453  008e a102          	cp	a,#2
-2454  0090 260d          	jrne	L3741
-2455                     ; 126 		port_temp=p3_const[program_steps];	
-2457  0092 c60024        	ld	a,_program_steps
-2458  0095 5f            	clrw	x
-2459  0096 97            	ld	xl,a
-2460  0097 d60016        	ld	a,(_p3_const,x)
-2461  009a c70025        	ld	_port_temp,a
-2463  009d 2026          	jra	L5641
-2464  009f               L3741:
-2465                     ; 128 	else if(program_stat==p4)
-2467  009f c6000e        	ld	a,_program_stat
-2468  00a2 a103          	cp	a,#3
-2469  00a4 260d          	jrne	L7741
-2470                     ; 130 		port_temp=p4_const[program_steps];	
-2472  00a6 c60024        	ld	a,_program_steps
-2473  00a9 5f            	clrw	x
-2474  00aa 97            	ld	xl,a
-2475  00ab d60022        	ld	a,(_p4_const,x)
-2476  00ae c70025        	ld	_port_temp,a
-2478  00b1 2012          	jra	L5641
-2479  00b3               L7741:
-2480                     ; 132 	else if(program_stat==p5)
-2482  00b3 c6000e        	ld	a,_program_stat
-2483  00b6 a104          	cp	a,#4
-2484  00b8 260b          	jrne	L5641
-2485                     ; 134 		port_temp=p5_const[program_steps];	
-2487  00ba c60024        	ld	a,_program_steps
-2488  00bd 5f            	clrw	x
-2489  00be 97            	ld	xl,a
-2490  00bf d6002e        	ld	a,(_p5_const,x)
-2491  00c2 c70025        	ld	_port_temp,a
-2492  00c5               L5641:
-2493                     ; 137 	GPIOD->ODR=port_temp;
-2495  00c5 550025500f    	mov	20495,_port_temp
-2496  00ca               L3541:
-2497                     ; 139 bTIME_WRK=0;
-2499  00ca 725f000b      	clr	_bTIME_WRK
-2500                     ; 140 }
-2503  00ce 81            	ret
-2526                     ; 143 void gpio_init(void)
-2526                     ; 144 {
-2527                     	switch	.text
-2528  00cf               _gpio_init:
-2532                     ; 147 GPIOD->DDR|=0xff;
-2534  00cf c65011        	ld	a,20497
-2535  00d2 aaff          	or	a,#255
-2536  00d4 c75011        	ld	20497,a
-2537                     ; 148 GPIOD->CR1|=0xff;
-2539  00d7 c65012        	ld	a,20498
-2540  00da aaff          	or	a,#255
-2541  00dc c75012        	ld	20498,a
-2542                     ; 149 GPIOD->CR2&=~0xff;
-2544  00df c65013        	ld	a,20499
-2545  00e2 a400          	and	a,#0
-2546  00e4 c75013        	ld	20499,a
-2547                     ; 152 }
-2550  00e7 81            	ret
-2573                     ; 155 void t4_init(void)
-2573                     ; 156 {
-2574                     	switch	.text
-2575  00e8               _t4_init:
-2579                     ; 157 TIM4->PSCR = 7;
-2581  00e8 35075347      	mov	21319,#7
-2582                     ; 158 TIM4->ARR= 123;
-2584  00ec 357b5348      	mov	21320,#123
-2585                     ; 159 TIM4->IER|= TIM4_IER_UIE;					// enable break interrupt
-2587  00f0 72105343      	bset	21315,#0
-2588                     ; 161 TIM4->CR1=(TIM4_CR1_URS | TIM4_CR1_CEN | TIM4_CR1_ARPE);	
-2590  00f4 35855340      	mov	21312,#133
-2591                     ; 162 }
-2594  00f8 81            	ret
-2617                     ; 164 void adc_init(void){
-2618                     	switch	.text
-2619  00f9               _adc_init:
-2623                     ; 165 	GPIOB->DDR&=~(1<<2);
-2625  00f9 72155007      	bres	20487,#2
-2626                     ; 166 	GPIOB->CR1&=~(1<<2);
-2628  00fd 72155008      	bres	20488,#2
-2629                     ; 167 	GPIOB->CR2&=~(1<<2);
-2631  0101 72155009      	bres	20489,#2
-2632                     ; 168 	ADC1->TDRL|=(1<<2);
-2634  0105 72145407      	bset	21511,#2
-2635                     ; 171 	ADC1->CR2=0x08;
-2637  0109 35085402      	mov	21506,#8
-2638                     ; 172 	ADC1->CR1=0x40;
-2640  010d 35405401      	mov	21505,#64
-2641                     ; 173 	ADC1->CSR=0x20+2;
-2643  0111 35225400      	mov	21504,#34
-2644                     ; 175 	ADC1->CR1|=1;
-2646  0115 72105401      	bset	21505,#0
-2647                     ; 176 ADC1->CR1|=1;
-2649  0119 72105401      	bset	21505,#0
-2650                     ; 177 }
-2653  011d 81            	ret
-2690                     ; 184 @far @interrupt void TIM4_UPD_Interrupt (void) 
-2690                     ; 185 {
-2692                     	switch	.text
-2693  011e               f_TIM4_UPD_Interrupt:
-2697                     ; 186 b1000Hz=1;
-2699  011e 35010000      	mov	_b1000Hz,#1
-2700                     ; 187 if(++t0_cnt0>=10)
-2702  0122 725c0006      	inc	_t0_cnt0
-2703  0126 c60006        	ld	a,_t0_cnt0
-2704  0129 a10a          	cp	a,#10
-2705  012b 2575          	jrult	L5451
-2706                     ; 189 	t0_cnt0=0;
-2708  012d 725f0006      	clr	_t0_cnt0
-2709                     ; 190 	b100Hz=1;
-2711  0131 35010001      	mov	_b100Hz,#1
-2712                     ; 192 	if(++t0_cnt1>=10)
-2714  0135 725c0007      	inc	_t0_cnt1
-2715  0139 c60007        	ld	a,_t0_cnt1
-2716  013c a10a          	cp	a,#10
-2717  013e 2508          	jrult	L7451
-2718                     ; 194 		t0_cnt1=0;
-2720  0140 725f0007      	clr	_t0_cnt1
-2721                     ; 195 		b10Hz=1;
-2723  0144 35010002      	mov	_b10Hz,#1
-2724  0148               L7451:
-2725                     ; 198 	if(++t0_cnt2>=20)
-2727  0148 725c0008      	inc	_t0_cnt2
-2728  014c c60008        	ld	a,_t0_cnt2
-2729  014f a114          	cp	a,#20
-2730  0151 2513          	jrult	L1551
-2731                     ; 200 		t0_cnt2=0;
-2733  0153 725f0008      	clr	_t0_cnt2
-2734                     ; 201 		b5Hz=1;
-2736  0157 35010003      	mov	_b5Hz,#1
-2737                     ; 202 		bFL5=!bFL5;
-2739  015b 3d03          	tnz	_bFL5
-2740  015d 2604          	jrne	L22
-2741  015f a601          	ld	a,#1
-2742  0161 2001          	jra	L42
-2743  0163               L22:
-2744  0163 4f            	clr	a
-2745  0164               L42:
-2746  0164 b703          	ld	_bFL5,a
-2747  0166               L1551:
-2748                     ; 205 	if(++t0_cnt3>=50)
-2750  0166 725c0009      	inc	_t0_cnt3
-2751  016a c60009        	ld	a,_t0_cnt3
-2752  016d a132          	cp	a,#50
-2753  016f 2513          	jrult	L3551
-2754                     ; 207 		t0_cnt3=0;
-2756  0171 725f0009      	clr	_t0_cnt3
-2757                     ; 208 		b2Hz=1;
-2759  0175 35010004      	mov	_b2Hz,#1
-2760                     ; 209 		bFL2=!bFL2;		
-2762  0179 3d02          	tnz	_bFL2
-2763  017b 2604          	jrne	L62
-2764  017d a601          	ld	a,#1
-2765  017f 2001          	jra	L03
-2766  0181               L62:
-2767  0181 4f            	clr	a
-2768  0182               L03:
-2769  0182 b702          	ld	_bFL2,a
-2770  0184               L3551:
-2771                     ; 212 	if(++t0_cnt4>=100)
-2773  0184 725c000a      	inc	_t0_cnt4
-2774  0188 c6000a        	ld	a,_t0_cnt4
-2775  018b a164          	cp	a,#100
-2776  018d 2513          	jrult	L5451
-2777                     ; 214 		t0_cnt4=0;
-2779  018f 725f000a      	clr	_t0_cnt4
-2780                     ; 215 		b1Hz=1;
-2782  0193 35010005      	mov	_b1Hz,#1
-2783                     ; 216 		bFL1=!bFL1;
-2785  0197 3d01          	tnz	_bFL1
-2786  0199 2604          	jrne	L23
-2787  019b a601          	ld	a,#1
-2788  019d 2001          	jra	L43
-2789  019f               L23:
-2790  019f 4f            	clr	a
-2791  01a0               L43:
-2792  01a0 b701          	ld	_bFL1,a
-2793  01a2               L5451:
-2794                     ; 220 TIM4->SR1&=~TIM4_SR1_UIF;			// disable break interrupt
-2796  01a2 72115344      	bres	21316,#0
-2797                     ; 221 return;
-2800  01a6 80            	iret
-2854                     ; 224 @far @interrupt void ADC_EOC_Interrupt (void) {
-2855                     	switch	.text
-2856  01a7               f_ADC_EOC_Interrupt:
-2858       00000009      OFST:	set	9
-2859  01a7 be00          	ldw	x,c_x
-2860  01a9 89            	pushw	x
-2861  01aa be00          	ldw	x,c_y
-2862  01ac 89            	pushw	x
-2863  01ad be02          	ldw	x,c_lreg+2
-2864  01af 89            	pushw	x
-2865  01b0 be00          	ldw	x,c_lreg
-2866  01b2 89            	pushw	x
-2867  01b3 5209          	subw	sp,#9
-2870                     ; 234 ADC1->CSR&=~(1<<7);
-2872  01b5 721f5400      	bres	21504,#7
-2873                     ; 236 temp_adc=(((signed long)(ADC1->DRH))*256)+((signed long)(ADC1->DRL));
-2875  01b9 c65405        	ld	a,21509
-2876  01bc b703          	ld	c_lreg+3,a
-2877  01be 3f02          	clr	c_lreg+2
-2878  01c0 3f01          	clr	c_lreg+1
-2879  01c2 3f00          	clr	c_lreg
-2880  01c4 96            	ldw	x,sp
-2881  01c5 1c0001        	addw	x,#OFST-8
-2882  01c8 cd0000        	call	c_rtol
-2884  01cb c65404        	ld	a,21508
-2885  01ce 5f            	clrw	x
-2886  01cf 97            	ld	xl,a
-2887  01d0 90ae0100      	ldw	y,#256
-2888  01d4 cd0000        	call	c_umul
-2890  01d7 96            	ldw	x,sp
-2891  01d8 1c0001        	addw	x,#OFST-8
-2892  01db cd0000        	call	c_ladd
-2894  01de 96            	ldw	x,sp
-2895  01df 1c0006        	addw	x,#OFST-3
-2896  01e2 cd0000        	call	c_rtol
-2898                     ; 242 adc_buff[adc_cnt]=temp_adc;
-2900  01e5 c60000        	ld	a,_adc_cnt
-2901  01e8 5f            	clrw	x
-2902  01e9 97            	ld	xl,a
-2903  01ea 58            	sllw	x
-2904  01eb 1608          	ldw	y,(OFST-1,sp)
-2905  01ed df0003        	ldw	(_adc_buff,x),y
-2906                     ; 247 adc_cnt++;
-2908  01f0 725c0000      	inc	_adc_cnt
-2909                     ; 248 if(adc_cnt>=16)
-2911  01f4 c60000        	ld	a,_adc_cnt
-2912  01f7 a110          	cp	a,#16
-2913  01f9 2504          	jrult	L5061
-2914                     ; 250 	adc_cnt=0;
-2916  01fb 725f0000      	clr	_adc_cnt
-2917  01ff               L5061:
-2918                     ; 254 if((adc_cnt&0x03)==0)
-2920  01ff c60000        	ld	a,_adc_cnt
-2921  0202 a503          	bcp	a,#3
-2922  0204 2637          	jrne	L7061
-2923                     ; 258 	tempSS=0;
-2925  0206 ae0000        	ldw	x,#0
-2926  0209 1f08          	ldw	(OFST-1,sp),x
-2927  020b ae0000        	ldw	x,#0
-2928  020e 1f06          	ldw	(OFST-3,sp),x
-2929                     ; 262 	for(i=0;i<16;i++)
-2931  0210 0f05          	clr	(OFST-4,sp)
-2932  0212               L1161:
-2933                     ; 264 		tempSS+=(signed long)adc_buff[i];
-2935  0212 7b05          	ld	a,(OFST-4,sp)
-2936  0214 5f            	clrw	x
-2937  0215 97            	ld	xl,a
-2938  0216 58            	sllw	x
-2939  0217 de0003        	ldw	x,(_adc_buff,x)
-2940  021a cd0000        	call	c_itolx
-2942  021d 96            	ldw	x,sp
-2943  021e 1c0006        	addw	x,#OFST-3
-2944  0221 cd0000        	call	c_lgadd
-2946                     ; 262 	for(i=0;i<16;i++)
-2948  0224 0c05          	inc	(OFST-4,sp)
-2951  0226 7b05          	ld	a,(OFST-4,sp)
-2952  0228 a110          	cp	a,#16
-2953  022a 25e6          	jrult	L1161
-2954                     ; 266 	adc_buff_=(signed short)(tempSS>>4);
-2956  022c 96            	ldw	x,sp
-2957  022d 1c0006        	addw	x,#OFST-3
-2958  0230 cd0000        	call	c_ltor
-2960  0233 a604          	ld	a,#4
-2961  0235 cd0000        	call	c_lrsh
-2963  0238 be02          	ldw	x,c_lreg+2
-2964  023a cf0001        	ldw	_adc_buff_,x
-2965  023d               L7061:
-2966                     ; 288 }
-2969  023d 5b09          	addw	sp,#9
-2970  023f 85            	popw	x
-2971  0240 bf00          	ldw	c_lreg,x
-2972  0242 85            	popw	x
-2973  0243 bf02          	ldw	c_lreg+2,x
-2974  0245 85            	popw	x
-2975  0246 bf00          	ldw	c_y,x
-2976  0248 85            	popw	x
-2977  0249 bf00          	ldw	c_x,x
-2978  024b 80            	iret
-3000                     ; 290 @far @interrupt void TIM1_Ovf_Interrupt (void) 
-3000                     ; 291 {
-3001                     	switch	.text
-3002  024c               f_TIM1_Ovf_Interrupt:
-3006                     ; 293 TIM1->SR1&=~TIM1_SR1_UIF;			
-3008  024c 72115255      	bres	21077,#0
-3009                     ; 294 }
-3012  0250 80            	iret
-3047                     ; 299 main()
-3047                     ; 300 {
-3049                     	switch	.text
-3050  0251               _main:
-3054                     ; 301 CLK->CKDIVR=0;
-3056  0251 725f50c6      	clr	20678
-3057                     ; 303 gpio_init();
-3059  0255 cd00cf        	call	_gpio_init
-3061                     ; 307 FLASH_DUKR=0xae;
-3063  0258 35ae5064      	mov	_FLASH_DUKR,#174
-3064                     ; 308 FLASH_DUKR=0x56;	
-3066  025c 35565064      	mov	_FLASH_DUKR,#86
-3067                     ; 312 t4_init();
-3069  0260 cd00e8        	call	_t4_init
-3071                     ; 313 enableInterrupts();	
-3074  0263 9a            rim
-3076                     ; 315 adc_init();
-3079  0264 cd00f9        	call	_adc_init
-3081  0267               L7361:
-3082                     ; 320 	if(b1000Hz)
-3084  0267 725d0000      	tnz	_b1000Hz
-3085  026b 2707          	jreq	L3461
-3086                     ; 322 		b1000Hz=0;
-3088  026d 725f0000      	clr	_b1000Hz
-3089                     ; 323 		time_wrk();
-3091  0271 cd0000        	call	_time_wrk
-3093  0274               L3461:
-3094                     ; 326 	if(b100Hz)
-3096  0274 725d0001      	tnz	_b100Hz
-3097  0278 2707          	jreq	L5461
-3098                     ; 328 		b100Hz=0;
-3100  027a 725f0001      	clr	_b100Hz
-3101                     ; 329 		wrk_hndl();	
-3103  027e cd0022        	call	_wrk_hndl
-3105  0281               L5461:
-3106                     ; 332 	if(b10Hz)
-3108  0281 725d0002      	tnz	_b10Hz
-3109  0285 2707          	jreq	L7461
-3110                     ; 334 		b10Hz=0;
-3112  0287 725f0002      	clr	_b10Hz
-3113                     ; 335 		adc_init();	
-3115  028b cd00f9        	call	_adc_init
-3117  028e               L7461:
-3118                     ; 338 	if(b5Hz)
-3120  028e 725d0003      	tnz	_b5Hz
-3121  0292 2704          	jreq	L1561
-3122                     ; 340 		b5Hz=0;
-3124  0294 725f0003      	clr	_b5Hz
-3125  0298               L1561:
-3126                     ; 344 	if(b2Hz)
-3128  0298 725d0004      	tnz	_b2Hz
-3129  029c 2704          	jreq	L3561
-3130                     ; 346 		b2Hz=0;
-3132  029e 725f0004      	clr	_b2Hz
-3133  02a2               L3561:
-3134                     ; 350 	if(b1Hz)
-3136  02a2 725d0005      	tnz	_b1Hz
-3137  02a6 27bf          	jreq	L7361
-3138                     ; 352 		b1Hz=0;
-3140  02a8 725f0005      	clr	_b1Hz
-3141  02ac 20b9          	jra	L7361
-3525                     	xdef	_main
-3526                     	xdef	f_TIM1_Ovf_Interrupt
-3527                     	xdef	f_ADC_EOC_Interrupt
-3528                     	xdef	f_TIM4_UPD_Interrupt
-3529                     	xdef	_adc_init
-3530                     	xdef	_t4_init
-3531                     	xdef	_gpio_init
-3532                     	xdef	_wrk_hndl
-3533                     	xdef	_time_wrk
-3534                     	xdef	_p5_const
-3535                     	xdef	_p4_const
-3536                     	xdef	_p3_const
-3537                     	xdef	_p2_const
-3538                     	xdef	_p1_const
-3539                     	switch	.bss
-3540  0000               _adc_cnt:
-3541  0000 00            	ds.b	1
-3542                     	xdef	_adc_cnt
-3543  0001               _adc_buff_:
-3544  0001 0000          	ds.b	2
-3545                     	xdef	_adc_buff_
-3546  0003               _adc_buff:
-3547  0003 000000000000  	ds.b	32
-3548                     	xdef	_adc_buff
-3549  0023               _program_repeat:
-3550  0023 00            	ds.b	1
-3551                     	xdef	_program_repeat
-3552  0024               _program_steps:
-3553  0024 00            	ds.b	1
-3554                     	xdef	_program_steps
-3555                     	xdef	_program_repeat_max
-3556                     	xdef	_program_steps_max
-3557  0025               _port_temp:
-3558  0025 00            	ds.b	1
-3559                     	xdef	_port_temp
-3560                     	xdef	_program_stat
-3561                     	xdef	_time_wrk_cnt_max
-3562  0026               _time_wrk_cnt:
-3563  0026 0000          	ds.b	2
-3564                     	xdef	_time_wrk_cnt
-3565                     	xdef	_bTIME_WRK
-3566                     	switch	.ubsct
-3567  0000               _bFL_:
-3568  0000 00            	ds.b	1
-3569                     	xdef	_bFL_
-3570  0001               _bFL1:
-3571  0001 00            	ds.b	1
-3572                     	xdef	_bFL1
-3573  0002               _bFL2:
-3574  0002 00            	ds.b	1
-3575                     	xdef	_bFL2
-3576  0003               _bFL5:
-3577  0003 00            	ds.b	1
-3578                     	xdef	_bFL5
-3579                     	xdef	_t0_cnt4
-3580                     	xdef	_t0_cnt3
-3581                     	xdef	_t0_cnt2
-3582                     	xdef	_t0_cnt1
-3583                     	xdef	_t0_cnt0
-3584                     	xdef	_b1Hz
-3585                     	xdef	_b2Hz
-3586                     	xdef	_b5Hz
-3587                     	xdef	_b10Hz
-3588                     	xdef	_b100Hz
-3589                     	xdef	_b1000Hz
-3590                     	xref.b	c_lreg
-3591                     	xref.b	c_x
-3592                     	xref.b	c_y
-3612                     	xref	c_lrsh
-3613                     	xref	c_ltor
-3614                     	xref	c_lgadd
-3615                     	xref	c_itolx
-3616                     	xref	c_ladd
-3617                     	xref	c_rtol
-3618                     	xref	c_umul
-3619                     	end
+2209  0005 0c            	dc.b	12
+2210  0006 0c            	dc.b	12
+2211  0007 06            	dc.b	6
+2212  0008 06            	dc.b	6
+2213  0009 1c            	dc.b	28
+2214  000a 1c            	dc.b	28
+2215  000b               _program_repeat_max:
+2216  000b 0a            	dc.b	10
+2217  000c 0a            	dc.b	10
+2218  000d 05            	dc.b	5
+2219  000e 05            	dc.b	5
+2220  000f 05            	dc.b	5
+2221  0010 05            	dc.b	5
+2222  0011 05            	dc.b	5
+2223  0012 0a            	dc.b	10
+2224  0013 0a            	dc.b	10
+2225  0014 03            	dc.b	3
+2226  0015 03            	dc.b	3
+2227  0016               _p1_const:
+2228  0016 01            	dc.b	1
+2229  0017 02            	dc.b	2
+2230  0018 04            	dc.b	4
+2231  0019 08            	dc.b	8
+2232  001a 10            	dc.b	16
+2233  001b 20            	dc.b	32
+2234  001c               _p2_const:
+2235  001c 20            	dc.b	32
+2236  001d 10            	dc.b	16
+2237  001e 08            	dc.b	8
+2238  001f 04            	dc.b	4
+2239  0020 02            	dc.b	2
+2240  0021 01            	dc.b	1
+2241  0022               _p3_const:
+2242  0022 01            	dc.b	1
+2243  0023 03            	dc.b	3
+2244  0024 07            	dc.b	7
+2245  0025 0f            	dc.b	15
+2246  0026 1f            	dc.b	31
+2247  0027 3f            	dc.b	63
+2248  0028 3e            	dc.b	62
+2249  0029 3c            	dc.b	60
+2250  002a 38            	dc.b	56
+2251  002b 30            	dc.b	48
+2252  002c 20            	dc.b	32
+2253  002d 00            	dc.b	0
+2254  002e               _p4_const:
+2255  002e 20            	dc.b	32
+2256  002f 30            	dc.b	48
+2257  0030 38            	dc.b	56
+2258  0031 3c            	dc.b	60
+2259  0032 3e            	dc.b	62
+2260  0033 3f            	dc.b	63
+2261  0034 1f            	dc.b	31
+2262  0035 0f            	dc.b	15
+2263  0036 07            	dc.b	7
+2264  0037 03            	dc.b	3
+2265  0038 01            	dc.b	1
+2266  0039 00            	dc.b	0
+2267  003a               _p5_const:
+2268  003a 01            	dc.b	1
+2269  003b 03            	dc.b	3
+2270  003c 02            	dc.b	2
+2271  003d 06            	dc.b	6
+2272  003e 04            	dc.b	4
+2273  003f 0c            	dc.b	12
+2274  0040 08            	dc.b	8
+2275  0041 18            	dc.b	24
+2276  0042 10            	dc.b	16
+2277  0043 30            	dc.b	48
+2278  0044 20            	dc.b	32
+2279  0045 21            	dc.b	33
+2280  0046               _p6_const:
+2281  0046 20            	dc.b	32
+2282  0047 30            	dc.b	48
+2283  0048 10            	dc.b	16
+2284  0049 18            	dc.b	24
+2285  004a 08            	dc.b	8
+2286  004b 0c            	dc.b	12
+2287  004c 04            	dc.b	4
+2288  004d 06            	dc.b	6
+2289  004e 02            	dc.b	2
+2290  004f 03            	dc.b	3
+2291  0050 01            	dc.b	1
+2292  0051 21            	dc.b	33
+2293  0052               _p7_const:
+2294  0052 20            	dc.b	32
+2295  0053 21            	dc.b	33
+2296  0054 31            	dc.b	49
+2297  0055 33            	dc.b	51
+2298  0056 3b            	dc.b	59
+2299  0057 3f            	dc.b	63
+2300  0058 3b            	dc.b	59
+2301  0059 33            	dc.b	51
+2302  005a 31            	dc.b	49
+2303  005b 21            	dc.b	33
+2304  005c 20            	dc.b	32
+2305  005d 00            	dc.b	0
+2306  005e               _p8_const:
+2307  005e 3e            	dc.b	62
+2308  005f 3d            	dc.b	61
+2309  0060 3b            	dc.b	59
+2310  0061 37            	dc.b	55
+2311  0062 2f            	dc.b	47
+2312  0063 1f            	dc.b	31
+2313  0064               _p9_const:
+2314  0064 1f            	dc.b	31
+2315  0065 2f            	dc.b	47
+2316  0066 37            	dc.b	55
+2317  0067 3b            	dc.b	59
+2318  0068 3d            	dc.b	61
+2319  0069 3e            	dc.b	62
+2320  006a               _p10_const:
+2321  006a 00            	dc.b	0
+2322  006b 01            	dc.b	1
+2323  006c 02            	dc.b	2
+2324  006d 04            	dc.b	4
+2325  006e 08            	dc.b	8
+2326  006f 10            	dc.b	16
+2327  0070 20            	dc.b	32
+2328  0071 21            	dc.b	33
+2329  0072 22            	dc.b	34
+2330  0073 24            	dc.b	36
+2331  0074 28            	dc.b	40
+2332  0075 30            	dc.b	48
+2333  0076 31            	dc.b	49
+2334  0077 32            	dc.b	50
+2335  0078 34            	dc.b	52
+2336  0079 38            	dc.b	56
+2337  007a 39            	dc.b	57
+2338  007b 3a            	dc.b	58
+2339  007c 3c            	dc.b	60
+2340  007d 3d            	dc.b	61
+2341  007e 3e            	dc.b	62
+2342  007f 3f            	dc.b	63
+2343  0080 3e            	dc.b	62
+2344  0081 3c            	dc.b	60
+2345  0082 38            	dc.b	56
+2346  0083 30            	dc.b	48
+2347  0084 20            	dc.b	32
+2348  0085 00            	dc.b	0
+2349  0086               _p11_const:
+2350  0086 00            	dc.b	0
+2351  0087 20            	dc.b	32
+2352  0088 10            	dc.b	16
+2353  0089 08            	dc.b	8
+2354  008a 04            	dc.b	4
+2355  008b 02            	dc.b	2
+2356  008c 01            	dc.b	1
+2357  008d 21            	dc.b	33
+2358  008e 11            	dc.b	17
+2359  008f 09            	dc.b	9
+2360  0090 05            	dc.b	5
+2361  0091 03            	dc.b	3
+2362  0092 23            	dc.b	35
+2363  0093 13            	dc.b	19
+2364  0094 0b            	dc.b	11
+2365  0095 07            	dc.b	7
+2366  0096 27            	dc.b	39
+2367  0097 17            	dc.b	23
+2368  0098 0f            	dc.b	15
+2369  0099 2f            	dc.b	47
+2370  009a 1f            	dc.b	31
+2371  009b 3f            	dc.b	63
+2372  009c 1f            	dc.b	31
+2373  009d 0f            	dc.b	15
+2374  009e 07            	dc.b	7
+2375  009f 03            	dc.b	3
+2376  00a0 01            	dc.b	1
+2377  00a1 00            	dc.b	0
+2410                     ; 184 void time_wrk(void)
+2410                     ; 185 {
+2412                     	switch	.text
+2413  0000               _time_wrk:
+2417                     ; 186 time_wrk_cnt_max=adc_buff_*2;
+2419  0000 ce0001        	ldw	x,_adc_buff_
+2420  0003 58            	sllw	x
+2421  0004 cf000c        	ldw	_time_wrk_cnt_max,x
+2422                     ; 188 time_wrk_cnt++;
+2424  0007 ce0026        	ldw	x,_time_wrk_cnt
+2425  000a 1c0001        	addw	x,#1
+2426  000d cf0026        	ldw	_time_wrk_cnt,x
+2427                     ; 189 if(time_wrk_cnt>=time_wrk_cnt_max)
+2429  0010 9c            	rvf
+2430  0011 ce0026        	ldw	x,_time_wrk_cnt
+2431  0014 c3000c        	cpw	x,_time_wrk_cnt_max
+2432  0017 2f08          	jrslt	L1441
+2433                     ; 191 	time_wrk_cnt=0;
+2435  0019 5f            	clrw	x
+2436  001a cf0026        	ldw	_time_wrk_cnt,x
+2437                     ; 192 	bTIME_WRK=1;
+2439  001d 3501000b      	mov	_bTIME_WRK,#1
+2440  0021               L1441:
+2441                     ; 195 }
+2444  0021 81            	ret
+2485                     ; 198 void wrk_hndl(void)
+2485                     ; 199 {
+2486                     	switch	.text
+2487  0022               _wrk_hndl:
+2491                     ; 200 if(bTIME_WRK)
+2493  0022 725d000b      	tnz	_bTIME_WRK
+2494  0026 2603          	jrne	L01
+2495  0028 cc014a        	jp	L3541
+2496  002b               L01:
+2497                     ; 202 	program_steps++;
+2499  002b 725c0024      	inc	_program_steps
+2500                     ; 203 	if(program_steps>=program_steps_max[program_stat])
+2502  002f c6000e        	ld	a,_program_stat
+2503  0032 5f            	clrw	x
+2504  0033 97            	ld	xl,a
+2505  0034 d60000        	ld	a,(_program_steps_max,x)
+2506  0037 c10024        	cp	a,_program_steps
+2507  003a 2228          	jrugt	L5541
+2508                     ; 205 		program_steps=0;
+2510  003c 725f0024      	clr	_program_steps
+2511                     ; 206 		program_repeat++;
+2513  0040 725c0023      	inc	_program_repeat
+2514                     ; 207 		if(program_repeat>=program_repeat_max[program_stat])
+2516  0044 c6000e        	ld	a,_program_stat
+2517  0047 5f            	clrw	x
+2518  0048 97            	ld	xl,a
+2519  0049 d6000b        	ld	a,(_program_repeat_max,x)
+2520  004c c10023        	cp	a,_program_repeat
+2521  004f 2213          	jrugt	L5541
+2522                     ; 209 			program_repeat=0;
+2524  0051 725f0023      	clr	_program_repeat
+2525                     ; 210 			program_stat++;
+2527  0055 725c000e      	inc	_program_stat
+2528                     ; 211 			if(program_stat>=MAX_PROGRAM_STAT)program_stat=0;
+2530  0059 c6000e        	ld	a,_program_stat
+2531  005c a10b          	cp	a,#11
+2532  005e 2504          	jrult	L5541
+2535  0060 725f000e      	clr	_program_stat
+2536  0064               L5541:
+2537                     ; 215 	if(program_stat==p1)
+2539  0064 725d000e      	tnz	_program_stat
+2540  0068 260f          	jrne	L3641
+2541                     ; 217 		port_temp=p1_const[program_steps];	
+2543  006a c60024        	ld	a,_program_steps
+2544  006d 5f            	clrw	x
+2545  006e 97            	ld	xl,a
+2546  006f d60016        	ld	a,(_p1_const,x)
+2547  0072 c70025        	ld	_port_temp,a
+2549  0075 ac450145      	jpf	L5641
+2550  0079               L3641:
+2551                     ; 219 	else if(program_stat==p2)
+2553  0079 c6000e        	ld	a,_program_stat
+2554  007c a101          	cp	a,#1
+2555  007e 260f          	jrne	L7641
+2556                     ; 221 		port_temp=p2_const[program_steps];	
+2558  0080 c60024        	ld	a,_program_steps
+2559  0083 5f            	clrw	x
+2560  0084 97            	ld	xl,a
+2561  0085 d6001c        	ld	a,(_p2_const,x)
+2562  0088 c70025        	ld	_port_temp,a
+2564  008b ac450145      	jpf	L5641
+2565  008f               L7641:
+2566                     ; 223 	else if(program_stat==p3)
+2568  008f c6000e        	ld	a,_program_stat
+2569  0092 a102          	cp	a,#2
+2570  0094 260f          	jrne	L3741
+2571                     ; 225 		port_temp=p3_const[program_steps];	
+2573  0096 c60024        	ld	a,_program_steps
+2574  0099 5f            	clrw	x
+2575  009a 97            	ld	xl,a
+2576  009b d60022        	ld	a,(_p3_const,x)
+2577  009e c70025        	ld	_port_temp,a
+2579  00a1 ac450145      	jpf	L5641
+2580  00a5               L3741:
+2581                     ; 227 	else if(program_stat==p4)
+2583  00a5 c6000e        	ld	a,_program_stat
+2584  00a8 a103          	cp	a,#3
+2585  00aa 260f          	jrne	L7741
+2586                     ; 229 		port_temp=p4_const[program_steps];	
+2588  00ac c60024        	ld	a,_program_steps
+2589  00af 5f            	clrw	x
+2590  00b0 97            	ld	xl,a
+2591  00b1 d6002e        	ld	a,(_p4_const,x)
+2592  00b4 c70025        	ld	_port_temp,a
+2594  00b7 ac450145      	jpf	L5641
+2595  00bb               L7741:
+2596                     ; 231 	else if(program_stat==p5)
+2598  00bb c6000e        	ld	a,_program_stat
+2599  00be a104          	cp	a,#4
+2600  00c0 260d          	jrne	L3051
+2601                     ; 233 		port_temp=p5_const[program_steps];	
+2603  00c2 c60024        	ld	a,_program_steps
+2604  00c5 5f            	clrw	x
+2605  00c6 97            	ld	xl,a
+2606  00c7 d6003a        	ld	a,(_p5_const,x)
+2607  00ca c70025        	ld	_port_temp,a
+2609  00cd 2076          	jra	L5641
+2610  00cf               L3051:
+2611                     ; 235 	else if(program_stat==p6)
+2613  00cf c6000e        	ld	a,_program_stat
+2614  00d2 a105          	cp	a,#5
+2615  00d4 260d          	jrne	L7051
+2616                     ; 237 		port_temp=p6_const[program_steps];	
+2618  00d6 c60024        	ld	a,_program_steps
+2619  00d9 5f            	clrw	x
+2620  00da 97            	ld	xl,a
+2621  00db d60046        	ld	a,(_p6_const,x)
+2622  00de c70025        	ld	_port_temp,a
+2624  00e1 2062          	jra	L5641
+2625  00e3               L7051:
+2626                     ; 239 	else if(program_stat==p7)
+2628  00e3 c6000e        	ld	a,_program_stat
+2629  00e6 a106          	cp	a,#6
+2630  00e8 260d          	jrne	L3151
+2631                     ; 241 		port_temp=p7_const[program_steps];	
+2633  00ea c60024        	ld	a,_program_steps
+2634  00ed 5f            	clrw	x
+2635  00ee 97            	ld	xl,a
+2636  00ef d60052        	ld	a,(_p7_const,x)
+2637  00f2 c70025        	ld	_port_temp,a
+2639  00f5 204e          	jra	L5641
+2640  00f7               L3151:
+2641                     ; 243 	else if(program_stat==p8)
+2643  00f7 c6000e        	ld	a,_program_stat
+2644  00fa a107          	cp	a,#7
+2645  00fc 260d          	jrne	L7151
+2646                     ; 245 		port_temp=p8_const[program_steps];	
+2648  00fe c60024        	ld	a,_program_steps
+2649  0101 5f            	clrw	x
+2650  0102 97            	ld	xl,a
+2651  0103 d6005e        	ld	a,(_p8_const,x)
+2652  0106 c70025        	ld	_port_temp,a
+2654  0109 203a          	jra	L5641
+2655  010b               L7151:
+2656                     ; 247 	else if(program_stat==p9)
+2658  010b c6000e        	ld	a,_program_stat
+2659  010e a108          	cp	a,#8
+2660  0110 260d          	jrne	L3251
+2661                     ; 249 		port_temp=p9_const[program_steps];	
+2663  0112 c60024        	ld	a,_program_steps
+2664  0115 5f            	clrw	x
+2665  0116 97            	ld	xl,a
+2666  0117 d60064        	ld	a,(_p9_const,x)
+2667  011a c70025        	ld	_port_temp,a
+2669  011d 2026          	jra	L5641
+2670  011f               L3251:
+2671                     ; 251 	else if(program_stat==p10)
+2673  011f c6000e        	ld	a,_program_stat
+2674  0122 a109          	cp	a,#9
+2675  0124 260d          	jrne	L7251
+2676                     ; 253 		port_temp=p10_const[program_steps];	
+2678  0126 c60024        	ld	a,_program_steps
+2679  0129 5f            	clrw	x
+2680  012a 97            	ld	xl,a
+2681  012b d6006a        	ld	a,(_p10_const,x)
+2682  012e c70025        	ld	_port_temp,a
+2684  0131 2012          	jra	L5641
+2685  0133               L7251:
+2686                     ; 255 	else if(program_stat==p11)
+2688  0133 c6000e        	ld	a,_program_stat
+2689  0136 a10a          	cp	a,#10
+2690  0138 260b          	jrne	L5641
+2691                     ; 257 		port_temp=p11_const[program_steps];	
+2693  013a c60024        	ld	a,_program_steps
+2694  013d 5f            	clrw	x
+2695  013e 97            	ld	xl,a
+2696  013f d60086        	ld	a,(_p11_const,x)
+2697  0142 c70025        	ld	_port_temp,a
+2698  0145               L5641:
+2699                     ; 259 	GPIOD->ODR=port_temp;
+2701  0145 550025500f    	mov	20495,_port_temp
+2702  014a               L3541:
+2703                     ; 261 bTIME_WRK=0;
+2705  014a 725f000b      	clr	_bTIME_WRK
+2706                     ; 262 }
+2709  014e 81            	ret
+2732                     ; 265 void gpio_init(void)
+2732                     ; 266 {
+2733                     	switch	.text
+2734  014f               _gpio_init:
+2738                     ; 269 GPIOD->DDR|=0xff;
+2740  014f c65011        	ld	a,20497
+2741  0152 aaff          	or	a,#255
+2742  0154 c75011        	ld	20497,a
+2743                     ; 270 GPIOD->CR1|=0xff;
+2745  0157 c65012        	ld	a,20498
+2746  015a aaff          	or	a,#255
+2747  015c c75012        	ld	20498,a
+2748                     ; 271 GPIOD->CR2&=~0xff;
+2750  015f c65013        	ld	a,20499
+2751  0162 a400          	and	a,#0
+2752  0164 c75013        	ld	20499,a
+2753                     ; 274 }
+2756  0167 81            	ret
+2779                     ; 277 void t4_init(void)
+2779                     ; 278 {
+2780                     	switch	.text
+2781  0168               _t4_init:
+2785                     ; 279 TIM4->PSCR = 7;
+2787  0168 35075347      	mov	21319,#7
+2788                     ; 280 TIM4->ARR= 123;
+2790  016c 357b5348      	mov	21320,#123
+2791                     ; 281 TIM4->IER|= TIM4_IER_UIE;					// enable break interrupt
+2793  0170 72105343      	bset	21315,#0
+2794                     ; 283 TIM4->CR1=(TIM4_CR1_URS | TIM4_CR1_CEN | TIM4_CR1_ARPE);	
+2796  0174 35855340      	mov	21312,#133
+2797                     ; 284 }
+2800  0178 81            	ret
+2823                     ; 286 void adc_init(void){
+2824                     	switch	.text
+2825  0179               _adc_init:
+2829                     ; 287 	GPIOB->DDR&=~(1<<2);
+2831  0179 72155007      	bres	20487,#2
+2832                     ; 288 	GPIOB->CR1&=~(1<<2);
+2834  017d 72155008      	bres	20488,#2
+2835                     ; 289 	GPIOB->CR2&=~(1<<2);
+2837  0181 72155009      	bres	20489,#2
+2838                     ; 290 	ADC1->TDRL|=(1<<2);
+2840  0185 72145407      	bset	21511,#2
+2841                     ; 293 	ADC1->CR2=0x08;
+2843  0189 35085402      	mov	21506,#8
+2844                     ; 294 	ADC1->CR1=0x40;
+2846  018d 35405401      	mov	21505,#64
+2847                     ; 295 	ADC1->CSR=0x20+2;
+2849  0191 35225400      	mov	21504,#34
+2850                     ; 297 	ADC1->CR1|=1;
+2852  0195 72105401      	bset	21505,#0
+2853                     ; 298 ADC1->CR1|=1;
+2855  0199 72105401      	bset	21505,#0
+2856                     ; 299 }
+2859  019d 81            	ret
+2896                     ; 306 @far @interrupt void TIM4_UPD_Interrupt (void) 
+2896                     ; 307 {
+2898                     	switch	.text
+2899  019e               f_TIM4_UPD_Interrupt:
+2903                     ; 308 b1000Hz=1;
+2905  019e 35010000      	mov	_b1000Hz,#1
+2906                     ; 309 if(++t0_cnt0>=10)
+2908  01a2 725c0006      	inc	_t0_cnt0
+2909  01a6 c60006        	ld	a,_t0_cnt0
+2910  01a9 a10a          	cp	a,#10
+2911  01ab 2575          	jrult	L5751
+2912                     ; 311 	t0_cnt0=0;
+2914  01ad 725f0006      	clr	_t0_cnt0
+2915                     ; 312 	b100Hz=1;
+2917  01b1 35010001      	mov	_b100Hz,#1
+2918                     ; 314 	if(++t0_cnt1>=10)
+2920  01b5 725c0007      	inc	_t0_cnt1
+2921  01b9 c60007        	ld	a,_t0_cnt1
+2922  01bc a10a          	cp	a,#10
+2923  01be 2508          	jrult	L7751
+2924                     ; 316 		t0_cnt1=0;
+2926  01c0 725f0007      	clr	_t0_cnt1
+2927                     ; 317 		b10Hz=1;
+2929  01c4 35010002      	mov	_b10Hz,#1
+2930  01c8               L7751:
+2931                     ; 320 	if(++t0_cnt2>=20)
+2933  01c8 725c0008      	inc	_t0_cnt2
+2934  01cc c60008        	ld	a,_t0_cnt2
+2935  01cf a114          	cp	a,#20
+2936  01d1 2513          	jrult	L1061
+2937                     ; 322 		t0_cnt2=0;
+2939  01d3 725f0008      	clr	_t0_cnt2
+2940                     ; 323 		b5Hz=1;
+2942  01d7 35010003      	mov	_b5Hz,#1
+2943                     ; 324 		bFL5=!bFL5;
+2945  01db 3d03          	tnz	_bFL5
+2946  01dd 2604          	jrne	L22
+2947  01df a601          	ld	a,#1
+2948  01e1 2001          	jra	L42
+2949  01e3               L22:
+2950  01e3 4f            	clr	a
+2951  01e4               L42:
+2952  01e4 b703          	ld	_bFL5,a
+2953  01e6               L1061:
+2954                     ; 327 	if(++t0_cnt3>=50)
+2956  01e6 725c0009      	inc	_t0_cnt3
+2957  01ea c60009        	ld	a,_t0_cnt3
+2958  01ed a132          	cp	a,#50
+2959  01ef 2513          	jrult	L3061
+2960                     ; 329 		t0_cnt3=0;
+2962  01f1 725f0009      	clr	_t0_cnt3
+2963                     ; 330 		b2Hz=1;
+2965  01f5 35010004      	mov	_b2Hz,#1
+2966                     ; 331 		bFL2=!bFL2;		
+2968  01f9 3d02          	tnz	_bFL2
+2969  01fb 2604          	jrne	L62
+2970  01fd a601          	ld	a,#1
+2971  01ff 2001          	jra	L03
+2972  0201               L62:
+2973  0201 4f            	clr	a
+2974  0202               L03:
+2975  0202 b702          	ld	_bFL2,a
+2976  0204               L3061:
+2977                     ; 334 	if(++t0_cnt4>=100)
+2979  0204 725c000a      	inc	_t0_cnt4
+2980  0208 c6000a        	ld	a,_t0_cnt4
+2981  020b a164          	cp	a,#100
+2982  020d 2513          	jrult	L5751
+2983                     ; 336 		t0_cnt4=0;
+2985  020f 725f000a      	clr	_t0_cnt4
+2986                     ; 337 		b1Hz=1;
+2988  0213 35010005      	mov	_b1Hz,#1
+2989                     ; 338 		bFL1=!bFL1;
+2991  0217 3d01          	tnz	_bFL1
+2992  0219 2604          	jrne	L23
+2993  021b a601          	ld	a,#1
+2994  021d 2001          	jra	L43
+2995  021f               L23:
+2996  021f 4f            	clr	a
+2997  0220               L43:
+2998  0220 b701          	ld	_bFL1,a
+2999  0222               L5751:
+3000                     ; 342 TIM4->SR1&=~TIM4_SR1_UIF;			// disable break interrupt
+3002  0222 72115344      	bres	21316,#0
+3003                     ; 343 return;
+3006  0226 80            	iret
+3060                     ; 346 @far @interrupt void ADC_EOC_Interrupt (void) {
+3061                     	switch	.text
+3062  0227               f_ADC_EOC_Interrupt:
+3064       00000009      OFST:	set	9
+3065  0227 be00          	ldw	x,c_x
+3066  0229 89            	pushw	x
+3067  022a be00          	ldw	x,c_y
+3068  022c 89            	pushw	x
+3069  022d be02          	ldw	x,c_lreg+2
+3070  022f 89            	pushw	x
+3071  0230 be00          	ldw	x,c_lreg
+3072  0232 89            	pushw	x
+3073  0233 5209          	subw	sp,#9
+3076                     ; 356 ADC1->CSR&=~(1<<7);
+3078  0235 721f5400      	bres	21504,#7
+3079                     ; 358 temp_adc=(((signed long)(ADC1->DRH))*256)+((signed long)(ADC1->DRL));
+3081  0239 c65405        	ld	a,21509
+3082  023c b703          	ld	c_lreg+3,a
+3083  023e 3f02          	clr	c_lreg+2
+3084  0240 3f01          	clr	c_lreg+1
+3085  0242 3f00          	clr	c_lreg
+3086  0244 96            	ldw	x,sp
+3087  0245 1c0001        	addw	x,#OFST-8
+3088  0248 cd0000        	call	c_rtol
+3090  024b c65404        	ld	a,21508
+3091  024e 5f            	clrw	x
+3092  024f 97            	ld	xl,a
+3093  0250 90ae0100      	ldw	y,#256
+3094  0254 cd0000        	call	c_umul
+3096  0257 96            	ldw	x,sp
+3097  0258 1c0001        	addw	x,#OFST-8
+3098  025b cd0000        	call	c_ladd
+3100  025e 96            	ldw	x,sp
+3101  025f 1c0006        	addw	x,#OFST-3
+3102  0262 cd0000        	call	c_rtol
+3104                     ; 364 adc_buff[adc_cnt]=temp_adc;
+3106  0265 c60000        	ld	a,_adc_cnt
+3107  0268 5f            	clrw	x
+3108  0269 97            	ld	xl,a
+3109  026a 58            	sllw	x
+3110  026b 1608          	ldw	y,(OFST-1,sp)
+3111  026d df0003        	ldw	(_adc_buff,x),y
+3112                     ; 369 adc_cnt++;
+3114  0270 725c0000      	inc	_adc_cnt
+3115                     ; 370 if(adc_cnt>=16)
+3117  0274 c60000        	ld	a,_adc_cnt
+3118  0277 a110          	cp	a,#16
+3119  0279 2504          	jrult	L5361
+3120                     ; 372 	adc_cnt=0;
+3122  027b 725f0000      	clr	_adc_cnt
+3123  027f               L5361:
+3124                     ; 376 if((adc_cnt&0x03)==0)
+3126  027f c60000        	ld	a,_adc_cnt
+3127  0282 a503          	bcp	a,#3
+3128  0284 2637          	jrne	L7361
+3129                     ; 380 	tempSS=0;
+3131  0286 ae0000        	ldw	x,#0
+3132  0289 1f08          	ldw	(OFST-1,sp),x
+3133  028b ae0000        	ldw	x,#0
+3134  028e 1f06          	ldw	(OFST-3,sp),x
+3135                     ; 384 	for(i=0;i<16;i++)
+3137  0290 0f05          	clr	(OFST-4,sp)
+3138  0292               L1461:
+3139                     ; 386 		tempSS+=(signed long)adc_buff[i];
+3141  0292 7b05          	ld	a,(OFST-4,sp)
+3142  0294 5f            	clrw	x
+3143  0295 97            	ld	xl,a
+3144  0296 58            	sllw	x
+3145  0297 de0003        	ldw	x,(_adc_buff,x)
+3146  029a cd0000        	call	c_itolx
+3148  029d 96            	ldw	x,sp
+3149  029e 1c0006        	addw	x,#OFST-3
+3150  02a1 cd0000        	call	c_lgadd
+3152                     ; 384 	for(i=0;i<16;i++)
+3154  02a4 0c05          	inc	(OFST-4,sp)
+3157  02a6 7b05          	ld	a,(OFST-4,sp)
+3158  02a8 a110          	cp	a,#16
+3159  02aa 25e6          	jrult	L1461
+3160                     ; 388 	adc_buff_=(signed short)(tempSS>>4);
+3162  02ac 96            	ldw	x,sp
+3163  02ad 1c0006        	addw	x,#OFST-3
+3164  02b0 cd0000        	call	c_ltor
+3166  02b3 a604          	ld	a,#4
+3167  02b5 cd0000        	call	c_lrsh
+3169  02b8 be02          	ldw	x,c_lreg+2
+3170  02ba cf0001        	ldw	_adc_buff_,x
+3171  02bd               L7361:
+3172                     ; 410 }
+3175  02bd 5b09          	addw	sp,#9
+3176  02bf 85            	popw	x
+3177  02c0 bf00          	ldw	c_lreg,x
+3178  02c2 85            	popw	x
+3179  02c3 bf02          	ldw	c_lreg+2,x
+3180  02c5 85            	popw	x
+3181  02c6 bf00          	ldw	c_y,x
+3182  02c8 85            	popw	x
+3183  02c9 bf00          	ldw	c_x,x
+3184  02cb 80            	iret
+3206                     ; 412 @far @interrupt void TIM1_Ovf_Interrupt (void) 
+3206                     ; 413 {
+3207                     	switch	.text
+3208  02cc               f_TIM1_Ovf_Interrupt:
+3212                     ; 415 TIM1->SR1&=~TIM1_SR1_UIF;			
+3214  02cc 72115255      	bres	21077,#0
+3215                     ; 416 }
+3218  02d0 80            	iret
+3253                     ; 421 main()
+3253                     ; 422 {
+3255                     	switch	.text
+3256  02d1               _main:
+3260                     ; 423 CLK->CKDIVR=0;
+3262  02d1 725f50c6      	clr	20678
+3263                     ; 425 gpio_init();
+3265  02d5 cd014f        	call	_gpio_init
+3267                     ; 429 FLASH_DUKR=0xae;
+3269  02d8 35ae5064      	mov	_FLASH_DUKR,#174
+3270                     ; 430 FLASH_DUKR=0x56;	
+3272  02dc 35565064      	mov	_FLASH_DUKR,#86
+3273                     ; 434 t4_init();
+3275  02e0 cd0168        	call	_t4_init
+3277                     ; 435 enableInterrupts();	
+3280  02e3 9a            rim
+3282                     ; 437 adc_init();
+3285  02e4 cd0179        	call	_adc_init
+3287  02e7               L7661:
+3288                     ; 442 	if(b1000Hz)
+3290  02e7 725d0000      	tnz	_b1000Hz
+3291  02eb 2707          	jreq	L3761
+3292                     ; 444 		b1000Hz=0;
+3294  02ed 725f0000      	clr	_b1000Hz
+3295                     ; 445 		time_wrk();
+3297  02f1 cd0000        	call	_time_wrk
+3299  02f4               L3761:
+3300                     ; 448 	if(b100Hz)
+3302  02f4 725d0001      	tnz	_b100Hz
+3303  02f8 2707          	jreq	L5761
+3304                     ; 450 		b100Hz=0;
+3306  02fa 725f0001      	clr	_b100Hz
+3307                     ; 451 		wrk_hndl();	
+3309  02fe cd0022        	call	_wrk_hndl
+3311  0301               L5761:
+3312                     ; 454 	if(b10Hz)
+3314  0301 725d0002      	tnz	_b10Hz
+3315  0305 2707          	jreq	L7761
+3316                     ; 456 		b10Hz=0;
+3318  0307 725f0002      	clr	_b10Hz
+3319                     ; 457 		adc_init();	
+3321  030b cd0179        	call	_adc_init
+3323  030e               L7761:
+3324                     ; 460 	if(b5Hz)
+3326  030e 725d0003      	tnz	_b5Hz
+3327  0312 2704          	jreq	L1071
+3328                     ; 462 		b5Hz=0;
+3330  0314 725f0003      	clr	_b5Hz
+3331  0318               L1071:
+3332                     ; 466 	if(b2Hz)
+3334  0318 725d0004      	tnz	_b2Hz
+3335  031c 2704          	jreq	L3071
+3336                     ; 468 		b2Hz=0;
+3338  031e 725f0004      	clr	_b2Hz
+3339  0322               L3071:
+3340                     ; 472 	if(b1Hz)
+3342  0322 725d0005      	tnz	_b1Hz
+3343  0326 27bf          	jreq	L7661
+3344                     ; 474 		b1Hz=0;
+3346  0328 725f0005      	clr	_b1Hz
+3347  032c 20b9          	jra	L7661
+3833                     	xdef	_main
+3834                     	xdef	f_TIM1_Ovf_Interrupt
+3835                     	xdef	f_ADC_EOC_Interrupt
+3836                     	xdef	f_TIM4_UPD_Interrupt
+3837                     	xdef	_adc_init
+3838                     	xdef	_t4_init
+3839                     	xdef	_gpio_init
+3840                     	xdef	_wrk_hndl
+3841                     	xdef	_time_wrk
+3842                     	xdef	_p11_const
+3843                     	xdef	_p10_const
+3844                     	xdef	_p9_const
+3845                     	xdef	_p8_const
+3846                     	xdef	_p7_const
+3847                     	xdef	_p6_const
+3848                     	xdef	_p5_const
+3849                     	xdef	_p4_const
+3850                     	xdef	_p3_const
+3851                     	xdef	_p2_const
+3852                     	xdef	_p1_const
+3853                     	switch	.bss
+3854  0000               _adc_cnt:
+3855  0000 00            	ds.b	1
+3856                     	xdef	_adc_cnt
+3857  0001               _adc_buff_:
+3858  0001 0000          	ds.b	2
+3859                     	xdef	_adc_buff_
+3860  0003               _adc_buff:
+3861  0003 000000000000  	ds.b	32
+3862                     	xdef	_adc_buff
+3863  0023               _program_repeat:
+3864  0023 00            	ds.b	1
+3865                     	xdef	_program_repeat
+3866  0024               _program_steps:
+3867  0024 00            	ds.b	1
+3868                     	xdef	_program_steps
+3869                     	xdef	_program_repeat_max
+3870                     	xdef	_program_steps_max
+3871  0025               _port_temp:
+3872  0025 00            	ds.b	1
+3873                     	xdef	_port_temp
+3874                     	xdef	_program_stat
+3875                     	xdef	_time_wrk_cnt_max
+3876  0026               _time_wrk_cnt:
+3877  0026 0000          	ds.b	2
+3878                     	xdef	_time_wrk_cnt
+3879                     	xdef	_bTIME_WRK
+3880                     	switch	.ubsct
+3881  0000               _bFL_:
+3882  0000 00            	ds.b	1
+3883                     	xdef	_bFL_
+3884  0001               _bFL1:
+3885  0001 00            	ds.b	1
+3886                     	xdef	_bFL1
+3887  0002               _bFL2:
+3888  0002 00            	ds.b	1
+3889                     	xdef	_bFL2
+3890  0003               _bFL5:
+3891  0003 00            	ds.b	1
+3892                     	xdef	_bFL5
+3893                     	xdef	_t0_cnt4
+3894                     	xdef	_t0_cnt3
+3895                     	xdef	_t0_cnt2
+3896                     	xdef	_t0_cnt1
+3897                     	xdef	_t0_cnt0
+3898                     	xdef	_b1Hz
+3899                     	xdef	_b2Hz
+3900                     	xdef	_b5Hz
+3901                     	xdef	_b10Hz
+3902                     	xdef	_b100Hz
+3903                     	xdef	_b1000Hz
+3904                     	xref.b	c_lreg
+3905                     	xref.b	c_x
+3906                     	xref.b	c_y
+3926                     	xref	c_lrsh
+3927                     	xref	c_ltor
+3928                     	xref	c_lgadd
+3929                     	xref	c_itolx
+3930                     	xref	c_ladd
+3931                     	xref	c_rtol
+3932                     	xref	c_umul
+3933                     	end
